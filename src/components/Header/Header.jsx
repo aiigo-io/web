@@ -12,7 +12,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className="container">
         <nav className={styles.nav}>
-          <a href="/" className={styles.logo}>AIIGo</a>
+          <a href="/web" className={styles.logo}>AIIGo</a>
           
           <div className={styles.hamburger} onClick={toggleMobileMenu}>
             <span className={mobileMenuOpen ? styles.open : ''}></span>
