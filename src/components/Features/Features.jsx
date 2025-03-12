@@ -4,22 +4,22 @@ import styles from './Features.module.css';
 const Features = () => {
   const featuresData = [
     {
-      title: 'Mobile Mining',
-      description: 'Mine CryptoX tokens directly from your smartphone without draining your battery or using excessive resources.',
+      title: 'Cloud Processing',
+      description: 'Access AIIGo computing resources directly from your devices without requiring expensive hardware or excessive energy consumption.',
       image: 'https://via.placeholder.com/150',
-      alt: 'Mining'
+      alt: 'Cloud Computing'
     },
     {
       title: 'Advanced Security',
-      description: 'Our blockchain uses state-of-the-art cryptography and consensus mechanisms to ensure your assets remain secure.',
+      description: 'Our platform uses state-of-the-art encryption and security protocols to ensure your AI models and data remain private and secure.',
       image: 'https://via.placeholder.com/150',
       alt: 'Security'
     },
     {
-      title: 'Fast Transactions',
-      description: 'Lightning-fast transaction speeds with minimal fees, making CryptoX perfect for everyday payments.',
+      title: 'High Performance',
+      description: 'Lightning-fast processing speeds with optimized resource allocation, making AIIGo perfect for demanding AI workloads.',
       image: 'https://via.placeholder.com/150',
-      alt: 'Transactions'
+      alt: 'Performance'
     }
   ];
 

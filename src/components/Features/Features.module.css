@@ -64,4 +64,45 @@
 
 .featureBtn:hover span {
     margin-left: 10px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 991px) {
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .featuresGrid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .featureContent {
+        padding: 20px 15px;
+    }
+    
+    .featureImg {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .featureImg {
+        height: 160px;
+    }
+    
+    .featureContent h3 {
+        font-size: 1.2rem;
+    }
+    
+    .featureBtn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px;
+        background-color: rgba(84, 104, 255, 0.1);
+        border-radius: 8px;
+    }
 } 

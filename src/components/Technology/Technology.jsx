@@ -6,17 +6,17 @@ const Technology = () => {
     {
       icon: '⚡',
       title: 'Energy Efficient',
-      description: 'Uses minimal resources compared to traditional cryptocurrencies'
+      description: 'Optimized algorithms that use minimal resources compared to traditional AI systems'
     },
     {
       icon: '🔒',
       title: 'Highly Secure',
-      description: 'Advanced cryptography protects against attacks'
+      description: 'Advanced encryption protects your models and data'
     },
     {
       icon: '⚙️',
       title: 'Scalable',
-      description: 'Handles thousands of transactions per second'
+      description: 'Handles millions of operations per second across distributed systems'
     }
   ];
 
@@ -28,15 +28,15 @@ const Technology = () => {
         </div>
         <div className={styles.techContainer}>
           <div className={styles.techContent}>
-            <h3>Next-Generation Blockchain Infrastructure</h3>
+            <h3>Next-Generation AI Infrastructure</h3>
             <p>
-              CryptoX is built on a completely new blockchain architecture designed for optimal performance, 
-              security, and energy efficiency. Our innovative consensus mechanism eliminates the high energy 
-              costs of traditional mining while maintaining decentralization.
+              AIIGo is built on a cutting-edge distributed computing architecture designed for optimal performance, 
+              security, and energy efficiency. Our innovative resource allocation system maximizes computing power
+              while minimizing energy consumption.
             </p>
             <p>
-              The platform supports smart contracts, decentralized applications, and seamless integration 
-              with existing financial systems.
+              The platform supports various AI and machine learning frameworks, distributed computing, and seamless integration 
+              with existing cloud systems.
             </p>
             
             <div className={styles.techBenefits}>
@@ -51,7 +51,7 @@ const Technology = () => {
           </div>
           
           <div className={styles.techImage}>
-            <img src="https://via.placeholder.com/500x400" alt="Blockchain Technology" />
+            <img src="https://via.placeholder.com/500x400" alt="AI Computing Technology" />
           </div>
         </div>
       </div>

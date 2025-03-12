@@ -44,8 +44,8 @@ const Footer = () => {
       <div className="container">
         <div className={styles.footerGrid}>
           <div className={styles.footerColumn}>
-            <h3>CryptoX</h3>
-            <p>The next generation of decentralized finance accessible to everyone.</p>
+            <h3>AIIGo</h3>
+            <p>The next generation of AI computing accessible to everyone.</p>
             <div className={styles.socialLinks}>
               {socialIcons.map((social, index) => (
                 <a 
@@ -75,7 +75,7 @@ const Footer = () => {
         </div>
         
         <div className={styles.copyright}>
-          &copy; {new Date().getFullYear()} CryptoX. All rights reserved.
+          &copy; {new Date().getFullYear()} AIIGo. All rights reserved.
         </div>
       </div>
     </footer>

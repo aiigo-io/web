@@ -64,4 +64,51 @@
 
 .cardBtn {
     margin-top: 20px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 991px) {
+    .networkGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .networkGrid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .networkCard {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .networkCard {
+        text-align: center;
+    }
+    
+    .networkCard h3 {
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .cardIcon {
+        margin-right: 0;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .platformIcons {
+        justify-content: center;
+    }
+    
+    .platformIcon {
+        width: 45px;
+        height: 45px;
+    }
 } 

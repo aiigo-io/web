@@ -6,19 +6,19 @@ const Hero = () => {
     <section className={styles.hero}>
       <div className="container">
         <div className={styles.heroContent}>
-          <h1>The Next Generation of Decentralized Finance</h1>
+          <h1>The Next Generation of AI Computing</h1>
           <p className={styles.heroSubtitle}>
-            CryptoX is a breakthrough cryptocurrency that combines security, scalability, and ease of use, 
-            allowing anyone to participate in the future of finance.
+            AIIGo is a breakthrough AI computing platform that combines powerful processing, scalability, and ease of use, 
+            allowing anyone to participate in the future of artificial intelligence.
           </p>
           <div className={styles.heroButtons}>
-            <a href="#" className="btn btn-primary">Start Mining Today</a>
+            <a href="#" className="btn btn-primary">Start Computing Today</a>
             <a href="#" className="btn btn-secondary">Learn More</a>
           </div>
         </div>
         <img 
           src="https://via.placeholder.com/600x500" 
-          alt="CryptoX Platform" 
+          alt="AIIGo Platform" 
           className={styles.heroImg}
         />
       </div>

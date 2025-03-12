@@ -5,17 +5,17 @@ const Network = () => {
   const networkData = [
     {
       icon: '📱',
-      title: 'Mobile App',
-      description: 'Our user-friendly mobile application allows you to mine, store, and trade CryptoX tokens with just a few taps.',
+      title: 'Mobile Access',
+      description: 'Our user-friendly mobile application allows you to manage AI tasks, monitor computing resources, and control your AIIGo workloads from anywhere.',
       buttonText: 'Download App',
       buttonClass: 'btn-primary',
       platforms: []
     },
     {
       icon: '💻',
-      title: 'Desktop Node',
-      description: 'Run a full node on your computer to support the network and earn additional rewards for your contribution.',
-      buttonText: 'Run a Node',
+      title: 'Desktop Client',
+      description: 'Run compute tasks on your computer to contribute processing power to the network and earn rewards for your contribution.',
+      buttonText: 'Install Client',
       buttonClass: 'btn-secondary',
       platforms: [
         { letter: 'W', name: 'Windows' },
@@ -25,9 +25,9 @@ const Network = () => {
     },
     {
       icon: '🌐',
-      title: 'Web Wallet',
-      description: 'Access your CryptoX tokens from any device using our secure web wallet interface.',
-      buttonText: 'Access Wallet',
+      title: 'Web Dashboard',
+      description: 'Access your AIIGo computing resources from any device using our secure web interface.',
+      buttonText: 'Access Dashboard',
       buttonClass: 'btn-primary',
       platforms: []
     }
