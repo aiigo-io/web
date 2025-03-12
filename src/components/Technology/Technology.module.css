@@ -1,0 +1,64 @@
+.technology {
+    background-color: white;
+}
+
+.techContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.techContent {
+    flex: 1;
+    min-width: 300px;
+    padding-right: 40px;
+}
+
+.techImage {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+}
+
+.techImage img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.techBenefits {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.techBenefit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.techBenefitIcon {
+    width: 60px;
+    height: 60px;
+    background: var(--light-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .techContainer {
+        flex-direction: column;
+    }
+    .techContent {
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+} 
