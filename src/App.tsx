@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/global.css';
 import Header from './components/Header/Header';
-import Hero from './components/Hero/Hero';
+import { HeroGeometric } from './components/ui/shape-landing-hero';
 import Stats from './components/Stats/Stats';
 import Features from './components/Features/Features';
 import Technology from './components/Technology/Technology';
@@ -12,9 +12,14 @@ import Footer from './components/Footer/Footer';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-light">
+    <div className="min-h-screen">
       <Header />
-      <Hero />
+      <HeroGeometric 
+        badge="AIIGo Platform"
+        title1="The Next Generation"
+        title2="of AI Computing"
+        description="AIIGo is a breakthrough AI computing platform that combines powerful processing, scalability, and ease of use, allowing anyone to participate in the future of artificial intelligence."
+      />
       <Stats />
       <Features />
       <Technology />

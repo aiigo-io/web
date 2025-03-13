@@ -5,37 +5,42 @@
 /* Custom base styles that extend Tailwind */
 @layer base {
   body {
-    @apply bg-light text-dark leading-relaxed overflow-x-hidden;
+    @apply bg-light text-dark leading-relaxed overflow-x-hidden min-h-screen;
   }
   
   h1, h2, h3, h4 {
-    @apply leading-tight mb-5;
+    @apply leading-tight mb-4 sm:mb-5;
   }
 
   h1 {
-    @apply text-4xl font-bold md:text-5xl;
+    @apply text-3xl font-bold sm:text-4xl md:text-5xl;
   }
 
   h2 {
-    @apply text-3xl font-bold md:text-4xl;
+    @apply text-2xl font-bold sm:text-3xl md:text-4xl;
   }
 
   h3 {
-    @apply text-2xl font-bold md:text-3xl;
+    @apply text-xl font-bold sm:text-2xl md:text-3xl;
   }
 
   p {
-    @apply mb-4;
+    @apply mb-3 sm:mb-4;
+  }
+  
+  /* Improved mobile touch targets */
+  a, button, [role="button"] {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/50;
   }
 }
 
 @layer components {
   .container {
-    @apply w-[90%] max-w-7xl mx-auto px-4;
+    @apply w-[94%] sm:w-[90%] max-w-7xl mx-auto px-3 sm:px-4;
   }
 
   .btn {
-    @apply inline-block py-3 px-6 rounded-lg font-semibold transition-all duration-300 cursor-pointer;
+    @apply inline-block py-2 px-4 sm:py-3 sm:px-6 rounded-lg font-semibold transition-all duration-300 cursor-pointer touch-manipulation;
   }
 
   .btn-primary {
@@ -47,7 +52,7 @@
   }
 
   .section-title {
-    @apply text-center mb-16;
+    @apply text-center mb-10 sm:mb-16;
   }
 
   .section-title h2 {

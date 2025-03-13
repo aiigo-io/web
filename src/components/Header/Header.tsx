@@ -28,6 +28,11 @@ const Header: React.FC = () => {
               <li className="md:mx-0"><a href="#technology" onClick={() => setMobileMenuOpen(false)} className="text-dark font-medium transition-all duration-300 py-2 px-4 block hover:text-primary">Technology</a></li>
               <li className="md:mx-0"><a href="#network" onClick={() => setMobileMenuOpen(false)} className="text-dark font-medium transition-all duration-300 py-2 px-4 block hover:text-primary">Network</a></li>
               <li className="md:mx-0"><a href="#tokenomics" onClick={() => setMobileMenuOpen(false)} className="text-dark font-medium transition-all duration-300 py-2 px-4 block hover:text-primary">Resource Allocation</a></li>
+              
+              {/* Mobile-only button */}
+              <li className="md:hidden mt-4">
+                <a href="#" onClick={() => setMobileMenuOpen(false)} className="btn btn-primary inline-block py-3 px-6 rounded-lg font-semibold">Get Started</a>
+              </li>
             </ul>
           </div>
           
