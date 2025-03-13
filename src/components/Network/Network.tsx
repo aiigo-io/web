@@ -1,8 +1,21 @@
 import React from 'react';
-import styles from './Network.module.css';
 
-const Network = () => {
-  const networkData = [
+interface Platform {
+  letter: string;
+  name: string;
+}
+
+interface NetworkItem {
+  icon: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonClass: string;
+  platforms: Platform[];
+}
+
+const Network: React.FC = () => {
+  const networkData: NetworkItem[] = [
     {
       icon: '📱',
       title: 'Mobile Access',
@@ -34,26 +47,28 @@ const Network = () => {
   ];
 
   return (
-    <section id="network" className={styles.network}>
+    <section id="network" className="bg-light py-20">
       <div className="container">
         <div className="section-title">
           <h2>Join Our Network</h2>
         </div>
-        <div className={styles.networkGrid}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {networkData.map((item, index) => (
-            <div key={index} className={styles.networkCard}>
-              <h3>
-                <div className={styles.cardIcon}>{item.icon}</div>
+            <div key={index} className="bg-white rounded-2xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <h3 className="flex items-center mb-4">
+                <div className="w-8 h-8 mr-3 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white">
+                  {item.icon}
+                </div>
                 {item.title}
               </h3>
-              <p>{item.description}</p>
+              <p className="text-gray-600 mb-5">{item.description}</p>
               
               {item.platforms.length > 0 && (
-                <div className={styles.platformIcons}>
+                <div className="flex gap-2 mb-6">
                   {item.platforms.map((platform, idx) => (
                     <div 
                       key={idx} 
-                      className={styles.platformIcon} 
+                      className="w-8 h-8 rounded-full border-2 border-primary text-primary flex items-center justify-center font-bold text-sm cursor-pointer hover:bg-primary hover:text-white transition-colors"
                       title={platform.name}
                     >
                       {platform.letter}
@@ -64,7 +79,7 @@ const Network = () => {
               
               <a 
                 href="#" 
-                className={`btn ${item.buttonClass} ${item.platforms.length > 0 ? styles.cardBtn : ''}`}
+                className={`btn ${item.buttonClass} ${item.platforms.length > 0 ? 'mt-0' : 'mt-6'}`}
               >
                 {item.buttonText}
               </a>

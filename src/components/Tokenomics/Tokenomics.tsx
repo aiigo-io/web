@@ -1,8 +1,12 @@
 import React from 'react';
-import styles from './Tokenomics.module.css';
 
-const Tokenomics = () => {
-  const resourceAllocationData = [
+interface ResourceAllocation {
+  label: string;
+  value: string;
+}
+
+const Tokenomics: React.FC = () => {
+  const resourceAllocationData: ResourceAllocation[] = [
     { label: 'Total Computing Power:', value: '1,000,000 TFLOPS' },
     { label: 'Public Compute Pool:', value: '50%' },
     { label: 'Research & Development:', value: '20%' },
@@ -12,31 +16,31 @@ const Tokenomics = () => {
   ];
 
   return (
-    <section id="tokenomics" className={styles.tokenomics}>
+    <section id="tokenomics" className="bg-white py-20">
       <div className="container">
         <div className="section-title">
           <h2>Resource Allocation</h2>
         </div>
-        <div className={styles.tokenomicsContent}>
-          <div className={styles.tokenomicsChart}>
-            <div className={styles.chartPlaceholder}>
+        <div className="flex flex-wrap items-center gap-10">
+          <div className="flex-1 min-w-[300px] bg-light p-5 rounded-2xl shadow-md">
+            <div className="w-full h-[300px] bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
               [Resource Distribution Chart]
             </div>
           </div>
           
-          <div className={styles.tokenomicsInfo}>
-            <h3>AIIGo Computing Resource Distribution</h3>
-            <p>
+          <div className="flex-1 min-w-[300px]">
+            <h3 className="text-2xl font-bold mb-4">AIIGo Computing Resource Distribution</h3>
+            <p className="text-gray-600 mb-5">
               Our computing resource allocation is designed to provide accessible AI computing power 
               while ensuring long-term sustainability and growth. The computing capacity is distributed 
               to maximize availability for all users.
             </p>
             
-            <ul className={styles.tokenStats}>
+            <ul className="space-y-3 border-t border-gray-200 pt-5">
               {resourceAllocationData.map((stat, index) => (
-                <li key={index}>
-                  <span>{stat.label}</span>
-                  <span>{stat.value}</span>
+                <li key={index} className="flex justify-between items-center py-2 border-b border-gray-100">
+                  <span className="font-medium">{stat.label}</span>
+                  <span className="font-bold text-primary">{stat.value}</span>
                 </li>
               ))}
             </ul>

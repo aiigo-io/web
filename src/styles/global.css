@@ -1,3 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles that extend Tailwind */
+@layer base {
+  body {
+    @apply bg-light text-dark leading-relaxed overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply leading-tight mb-5;
+  }
+
+  h1 {
+    @apply text-4xl font-bold md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl font-bold md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl font-bold md:text-3xl;
+  }
+
+  p {
+    @apply mb-4;
+  }
+}
+
+@layer components {
+  .container {
+    @apply w-[90%] max-w-7xl mx-auto px-4;
+  }
+
+  .btn {
+    @apply inline-block py-3 px-6 rounded-lg font-semibold transition-all duration-300 cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-opacity-90 active:bg-opacity-100;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white active:bg-opacity-90;
+  }
+
+  .section-title {
+    @apply text-center mb-16;
+  }
+
+  .section-title h2 {
+    @apply relative inline-block pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-16 after:h-1 after:bg-primary;
+  }
+}
+
 /* Base Styles */
 :root {
     --primary-color: #5468ff;
@@ -29,13 +86,6 @@ body {
 img {
     max-width: 100%;
     height: auto;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
 }
 
 section {

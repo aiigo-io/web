@@ -1,8 +1,22 @@
 import React from 'react';
-import styles from './Footer.module.css';
 
-const Footer = () => {
-  const footerLinks = [
+interface FooterLink {
+  name: string;
+  url: string;
+}
+
+interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+interface SocialIcon {
+  icon: string;
+  name: string;
+}
+
+const Footer: React.FC = () => {
+  const footerLinks: FooterColumn[] = [
     {
       title: 'Resources',
       links: [
@@ -32,7 +46,7 @@ const Footer = () => {
     }
   ];
 
-  const socialIcons = [
+  const socialIcons: SocialIcon[] = [
     { icon: 'F', name: 'Facebook' },
     { icon: 'T', name: 'Twitter' },
     { icon: 'I', name: 'Instagram' },
@@ -40,18 +54,18 @@ const Footer = () => {
   ];
 
   return (
-    <footer className={styles.footer}>
+    <footer className="bg-dark text-white py-16 pb-8">
       <div className="container">
-        <div className={styles.footerGrid}>
-          <div className={styles.footerColumn}>
-            <h3>AIIGo</h3>
-            <p>The next generation of AI computing accessible to everyone.</p>
-            <div className={styles.socialLinks}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+          <div>
+            <h3 className="text-xl font-bold mb-6 pb-3 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-primary">AIIGo</h3>
+            <p className="text-gray-300 mb-6">The next generation of AI computing accessible to everyone.</p>
+            <div className="flex space-x-4">
               {socialIcons.map((social, index) => (
                 <a 
                   key={index} 
                   href="#" 
-                  className={styles.socialIcon} 
+                  className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-gray-300 hover:bg-primary hover:border-primary hover:text-white transition-colors" 
                   title={social.name}
                 >
                   {social.icon}
@@ -61,12 +75,12 @@ const Footer = () => {
           </div>
           
           {footerLinks.map((column, index) => (
-            <div key={index} className={styles.footerColumn}>
-              <h3>{column.title}</h3>
-              <ul className={styles.footerLinks}>
+            <div key={index}>
+              <h3 className="text-xl font-bold mb-6 pb-3 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-primary">{column.title}</h3>
+              <ul className="space-y-3">
                 {column.links.map((link, idx) => (
                   <li key={idx}>
-                    <a href={link.url}>{link.name}</a>
+                    <a href={link.url} className="text-gray-400 hover:text-white transition-colors">{link.name}</a>
                   </li>
                 ))}
               </ul>
@@ -74,7 +88,7 @@ const Footer = () => {
           ))}
         </div>
         
-        <div className={styles.copyright}>
+        <div className="text-center text-gray-400 pt-8 border-t border-gray-800">
           &copy; {new Date().getFullYear()} AIIGo. All rights reserved.
         </div>
       </div>

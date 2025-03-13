@@ -1,17 +1,26 @@
-# Web
+# AIIGo Web Project
 
-A React-based web application hosted on GitHub Pages.
+This is the web frontend for the AIIGo platform, built with React, TypeScript, and Tailwind CSS.
 
-## Live Demo
+## Project Structure
 
-Visit the live application at [https://computing-io.github.io/web/](https://computing-io.github.io/web/)
+The project follows a standard React application structure:
+
+```
+src/
+  ├── components/     # React components
+  ├── styles/         # Global styles
+  ├── lib/            # Utility functions and helpers
+  ├── App.tsx         # Main application component
+  └── index.tsx       # Application entry point
+```
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (version 18 or later recommended)
-- npm (comes with Node.js)
+- Node.js (v14 or higher)
+- npm (v6 or higher)
 
 ### Installation
 
@@ -23,7 +32,7 @@ Visit the live application at [https://computing-io.github.io/web/](https://comp
 
 2. Install dependencies:
    ```bash
-   npm ci
+   npm install
    ```
 
 3. Start the development server:
@@ -31,16 +40,41 @@ Visit the live application at [https://computing-io.github.io/web/](https://comp
    npm start
    ```
 
-This will open the application in your default browser at [http://localhost:3000/web](http://localhost:3000/web).
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-- `npm start` - Runs the app in development mode
-- `npm test` - Launches the test runner
-- `npm run build` - Builds the app for production to the `build` folder
-- `npm run eject` - Ejects the create-react-app configuration
+- `npm start`: Runs the app in development mode
+- `npm test`: Launches the test runner
+- `npm run build`: Builds the app for production
+- `npm run eject`: Ejects from Create React App
+
+## Technologies Used
+
+- React 18
+- TypeScript
+- Tailwind CSS
+- Create React App
+
+## Project Conversion
+
+This project was converted from JavaScript (JSX) to TypeScript (TSX) and from CSS Modules to Tailwind CSS. The conversion process included:
+
+1. Adding TypeScript dependencies
+2. Creating TypeScript configuration
+3. Converting JSX components to TSX
+4. Implementing Tailwind CSS for styling
+5. Removing CSS modules
+
+## License
+
+ISC
+
+## Live Demo
+
+Visit the live application at [https://computing-io.github.io/web/](https://computing-io.github.io/web/)
 
 ## Deployment
 

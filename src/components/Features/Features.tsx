@@ -1,8 +1,14 @@
 import React from 'react';
-import styles from './Features.module.css';
 
-const Features = () => {
-  const featuresData = [
+interface FeatureItem {
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+}
+
+const Features: React.FC = () => {
+  const featuresData: FeatureItem[] = [
     {
       title: 'Cloud Processing',
       description: 'Access AIIGo computing resources directly from your devices without requiring expensive hardware or excessive energy consumption.',
@@ -24,22 +30,22 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className={styles.features}>
+    <section id="features" className="bg-light py-20">
       <div className="container">
         <div className="section-title">
           <h2>Key Features</h2>
         </div>
-        <div className={styles.featuresGrid}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {featuresData.map((feature, index) => (
-            <div key={index} className={styles.featureCard}>
-              <div className={styles.featureImg}>
-                <img src={feature.image} alt={feature.alt} />
+            <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl">
+              <div className="w-full h-48 bg-gray-100 flex items-center justify-center">
+                <img src={feature.image} alt={feature.alt} className="max-w-[60%] max-h-[60%]" />
               </div>
-              <div className={styles.featureContent}>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-                <a href="#" className={styles.featureBtn}>
-                  Learn More <span>→</span>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                <p className="text-gray-600 mb-4">{feature.description}</p>
+                <a href="#" className="inline-flex items-center text-primary font-medium hover:underline group">
+                  Learn More <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </a>
               </div>
             </div>

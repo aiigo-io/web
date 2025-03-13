@@ -1,8 +1,13 @@
 import React from 'react';
-import styles from './Technology.module.css';
 
-const Technology = () => {
-  const benefitsData = [
+interface Benefit {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const Technology: React.FC = () => {
+  const benefitsData: Benefit[] = [
     {
       icon: '⚡',
       title: 'Energy Efficient',
@@ -21,37 +26,43 @@ const Technology = () => {
   ];
 
   return (
-    <section id="technology" className={styles.technology}>
+    <section id="technology" className="bg-white py-20">
       <div className="container">
         <div className="section-title">
           <h2>Our Technology</h2>
         </div>
-        <div className={styles.techContainer}>
-          <div className={styles.techContent}>
-            <h3>Next-Generation AI Infrastructure</h3>
-            <p>
+        <div className="flex flex-wrap items-center">
+          <div className="flex-1 min-w-[300px] pr-0 lg:pr-10 mb-10 lg:mb-0">
+            <h3 className="text-2xl font-bold mb-4">Next-Generation AI Infrastructure</h3>
+            <p className="mb-4 text-gray-600">
               AIIGo is built on a cutting-edge distributed computing architecture designed for optimal performance, 
               security, and energy efficiency. Our innovative resource allocation system maximizes computing power
               while minimizing energy consumption.
             </p>
-            <p>
+            <p className="mb-8 text-gray-600">
               The platform supports various AI and machine learning frameworks, distributed computing, and seamless integration 
               with existing cloud systems.
             </p>
             
-            <div className={styles.techBenefits}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
               {benefitsData.map((benefit, index) => (
-                <div key={index} className={styles.techBenefit}>
-                  <div className={styles.techBenefitIcon}>{benefit.icon}</div>
-                  <h4>{benefit.title}</h4>
-                  <p>{benefit.description}</p>
+                <div key={index} className="flex flex-col items-center text-center">
+                  <div className="w-12 h-12 rounded-full bg-light flex items-center justify-center text-xl mb-3 shadow-md">
+                    {benefit.icon}
+                  </div>
+                  <h4 className="text-lg font-bold mb-2">{benefit.title}</h4>
+                  <p className="text-gray-600 text-sm">{benefit.description}</p>
                 </div>
               ))}
             </div>
           </div>
           
-          <div className={styles.techImage}>
-            <img src="https://via.placeholder.com/500x400" alt="AI Computing Technology" />
+          <div className="flex-1 min-w-[300px] text-center">
+            <img 
+              src="https://via.placeholder.com/500x400" 
+              alt="AI Computing Technology" 
+              className="max-w-full rounded-lg shadow-xl"
+            />
           </div>
         </div>
       </div>
