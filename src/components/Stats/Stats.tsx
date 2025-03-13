@@ -14,13 +14,13 @@ const Stats: React.FC = () => {
   ];
 
   return (
-    <section className="bg-white py-10 border-t border-b border-gray-200">
+    <section className="bg-[#040404] py-10 border-t border-b border-[#111]">
       <div className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {statsData.map((stat, index) => (
             <div key={index} className="p-5">
               <span className="text-4xl font-extrabold text-primary block mb-1">{stat.number}</span>
-              <span className="text-sm text-gray-500 uppercase tracking-wider">{stat.label}</span>
+              <span className="text-sm text-white/60 uppercase tracking-wider">{stat.label}</span>
             </div>
           ))}
         </div>

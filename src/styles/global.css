@@ -5,11 +5,11 @@
 /* Custom base styles that extend Tailwind */
 @layer base {
   body {
-    @apply bg-light text-dark leading-relaxed overflow-x-hidden min-h-screen;
+    @apply bg-[#030303] text-white/90 leading-relaxed overflow-x-hidden min-h-screen;
   }
   
   h1, h2, h3, h4 {
-    @apply leading-tight mb-4 sm:mb-5;
+    @apply leading-tight mb-4 sm:mb-5 text-white;
   }
 
   h1 {
@@ -25,7 +25,7 @@
   }
 
   p {
-    @apply mb-3 sm:mb-4;
+    @apply mb-3 sm:mb-4 text-white/70;
   }
   
   /* Improved mobile touch targets */
@@ -64,7 +64,8 @@
 :root {
     --primary-color: #5468ff;
     --secondary-color: #6c63ff;
-    --dark-color: #1a1a2e;
+    --dark-color: #030303;
+    --darker-color: #020202;
     --light-color: #f7f7f9;
     --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
 }
@@ -82,8 +83,8 @@ html {
 }
 
 body {
-    background-color: var(--light-color);
-    color: var(--dark-color);
+    background-color: var(--dark-color);
+    color: white;
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -100,6 +101,7 @@ section {
 h1, h2, h3, h4 {
     line-height: 1.2;
     margin-bottom: 20px;
+    color: white;
 }
 
 h1 {
@@ -120,6 +122,7 @@ h3 {
 p {
     margin-bottom: 20px;
     font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .btn {
@@ -176,6 +179,7 @@ p {
 .section-title h2 {
     display: inline-block;
     position: relative;
+    color: white;
 }
 
 .section-title h2::after {

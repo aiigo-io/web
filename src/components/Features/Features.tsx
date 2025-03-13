@@ -30,7 +30,7 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section id="features" className="bg-light py-12 sm:py-16 md:py-20">
+    <section id="features" className="bg-[#050505] py-12 sm:py-16 md:py-20">
       <div className="container">
         <div className="section-title">
           <h2>Key Features</h2>
@@ -39,15 +39,15 @@ const Features: React.FC = () => {
           {featuresData.map((feature, index) => (
             <div 
               key={index} 
-              className="bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl"
+              className="bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-md shadow-black/40 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl"
               style={{ touchAction: 'manipulation' }}
             >
-              <div className="w-full h-36 sm:h-48 bg-gray-100 flex items-center justify-center">
+              <div className="w-full h-36 sm:h-48 bg-[#111] flex items-center justify-center">
                 <img src={feature.image} alt={feature.alt} className="max-w-[60%] max-h-[60%]" />
               </div>
               <div className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{feature.title}</h3>
-                <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">{feature.description}</p>
+                <p className="text-sm sm:text-base text-white/60 mb-3 sm:mb-4">{feature.description}</p>
                 <a 
                   href="#" 
                   className="inline-flex items-center text-primary font-medium hover:underline group py-1"

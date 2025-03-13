@@ -47,21 +47,21 @@ const Network: React.FC = () => {
   ];
 
   return (
-    <section id="network" className="bg-light py-20">
+    <section id="network" className="bg-[#050505] py-20">
       <div className="container">
         <div className="section-title">
           <h2>Join Our Network</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {networkData.map((item, index) => (
-            <div key={index} className="bg-white rounded-2xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <h3 className="flex items-center mb-4">
+            <div key={index} className="bg-[#0a0a0a] rounded-2xl p-8 shadow-md shadow-black/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <h3 className="flex items-center mb-4 text-white">
                 <div className="w-8 h-8 mr-3 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-white">
                   {item.icon}
                 </div>
                 {item.title}
               </h3>
-              <p className="text-gray-600 mb-5">{item.description}</p>
+              <p className="text-white/60 mb-5">{item.description}</p>
               
               {item.platforms.length > 0 && (
                 <div className="flex gap-2 mb-6">
