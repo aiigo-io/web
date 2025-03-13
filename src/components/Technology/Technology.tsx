@@ -1,9 +1,16 @@
 import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface Benefit {
   icon: string;
   title: string;
   description: string;
+}
+
+interface PerformanceMetric {
+  name: string;
+  AIIGo: number;
+  Traditional: number;
 }
 
 const Technology: React.FC = () => {
@@ -23,6 +30,14 @@ const Technology: React.FC = () => {
       title: 'Scalable',
       description: 'Handles millions of operations per second across distributed systems'
     }
+  ];
+
+  // Performance comparison data
+  const performanceData: PerformanceMetric[] = [
+    { name: 'Processing Speed', AIIGo: 95, Traditional: 60 },
+    { name: 'Cost Efficiency', AIIGo: 90, Traditional: 45 },
+    { name: 'Energy Usage', AIIGo: 30, Traditional: 80 },
+    { name: 'Scalability', AIIGo: 98, Traditional: 50 },
   ];
 
   return (
@@ -57,12 +72,50 @@ const Technology: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex-1 min-w-[300px] text-center">
-            <img 
-              src="https://via.placeholder.com/500x400" 
-              alt="AI Computing Technology" 
-              className="max-w-full rounded-lg shadow-xl shadow-black/20 border border-[#111]"
-            />
+          <div className="flex-1 min-w-[300px]">
+            <div className="mb-8">
+              <img 
+                src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3" 
+                alt="AI Computing Technology" 
+                className="max-w-full rounded-lg shadow-xl shadow-black/20 border border-[#111]"
+              />
+            </div>
+
+            <div className="mt-8 bg-[#0a0a0a] p-5 rounded-2xl shadow-md shadow-black/30">
+              <h4 className="text-xl font-bold mb-4 text-white text-center">Performance Comparison</h4>
+              <div className="w-full h-[250px] bg-[#111] rounded-lg overflow-hidden">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={performanceData}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+                    <XAxis 
+                      dataKey="name" 
+                      tick={{ fill: 'white', fontSize: 12 }}
+                    />
+                    <YAxis 
+                      label={{ value: 'Performance Score', angle: -90, position: 'insideLeft', fill: 'white', fontSize: 12 }}
+                      tick={{ fill: 'white', fontSize: 12 }} 
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#1a1a1a', 
+                        borderColor: '#333',
+                        borderRadius: '8px', 
+                        color: 'white' 
+                      }}
+                    />
+                    <Legend wrapperStyle={{ color: 'white', fontSize: '12px' }} />
+                    <Bar dataKey="AIIGo" fill="#5468ff" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="Traditional" fill="#f43f5e" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="text-white/60 text-xs mt-3 text-center">
+                Lower score for Energy Usage indicates better efficiency (less energy consumed)
+              </p>
+            </div>
           </div>
         </div>
       </div>
