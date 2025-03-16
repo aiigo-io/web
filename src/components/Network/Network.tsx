@@ -1,4 +1,5 @@
 import React from 'react';
+import { GradientButton } from '../ui/gradient-button';
 
 interface Platform {
   letter: string;
@@ -10,7 +11,7 @@ interface NetworkItem {
   title: string;
   description: string;
   buttonText: string;
-  buttonClass: string;
+  variant?: "default" | "variant";
   platforms: Platform[];
 }
 
@@ -21,7 +22,7 @@ const Network: React.FC = () => {
       title: 'Mobile Access',
       description: 'Our user-friendly mobile application allows you to manage AI tasks, monitor computing resources, and control your AIIGo workloads from anywhere.',
       buttonText: 'Download App',
-      buttonClass: 'btn-primary',
+      variant: "default",
       platforms: []
     },
     {
@@ -29,7 +30,7 @@ const Network: React.FC = () => {
       title: 'Desktop Client',
       description: 'Run compute tasks on your computer to contribute processing power to the network and earn rewards for your contribution.',
       buttonText: 'Install Client',
-      buttonClass: 'btn-secondary',
+      variant: "variant",
       platforms: [
         { letter: 'W', name: 'Windows' },
         { letter: 'M', name: 'macOS' },
@@ -41,7 +42,7 @@ const Network: React.FC = () => {
       title: 'Web Dashboard',
       description: 'Access your AIIGo computing resources from any device using our secure web interface.',
       buttonText: 'Access Dashboard',
-      buttonClass: 'btn-primary',
+      variant: "default",
       platforms: []
     }
   ];
@@ -77,12 +78,11 @@ const Network: React.FC = () => {
                 </div>
               )}
               
-              <a 
-                href="#" 
-                className={`btn ${item.buttonClass} ${item.platforms.length > 0 ? 'mt-0' : 'mt-6'}`}
-              >
-                {item.buttonText}
-              </a>
+              <div className={`${item.platforms.length > 0 ? 'mt-0' : 'mt-6'}`}>
+                <GradientButton variant={item.variant}>
+                  {item.buttonText}
+                </GradientButton>
+              </div>
             </div>
           ))}
         </div>

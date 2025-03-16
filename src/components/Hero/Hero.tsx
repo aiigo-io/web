@@ -1,4 +1,5 @@
 import React from 'react';
+import { GradientButton } from '../ui/gradient-button';
 
 const Hero: React.FC = () => {
   return (
@@ -13,8 +14,8 @@ const Hero: React.FC = () => {
             allowing anyone to participate in the future of artificial intelligence.
           </p>
           <div className="flex flex-col md:flex-row gap-5">
-            <a href="#" className="btn btn-primary">Start Computing Today</a>
-            <a href="#" className="btn btn-secondary">Learn More</a>
+            <GradientButton>Start Computing Today</GradientButton>
+            <GradientButton variant="variant">Learn More</GradientButton>
           </div>
         </div>
         <img 

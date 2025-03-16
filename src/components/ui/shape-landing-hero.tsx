@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { Circle } from "lucide-react";
-import { useEffect, useState } from "react";
 import { cn } from "../../lib/utils";
+import { GradientButton } from './gradient-button';
 
 function ElegantShape({
     className,
@@ -165,11 +165,12 @@ function HeroGeometric({
                         initial="hidden"
                         animate="visible"
                     >
-                        <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 md:mb-8 tracking-tight leading-tight">
+                        <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 md:mb-8 tracking-tight leading-tight hero-section">
                             <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">
                                 {title1}
                             </span>
-                            <br />
+                            <br className="sm:block hidden" />
+                            <span className="sm:hidden"> </span>
                             <span
                                 className={cn(
                                     "bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300"
@@ -186,7 +187,7 @@ function HeroGeometric({
                         initial="hidden"
                         animate="visible"
                     >
-                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-2 sm:px-4">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/60 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-2 sm:px-4">
                             {description}
                         </p>
                     </motion.div>
@@ -198,8 +199,8 @@ function HeroGeometric({
                         animate="visible"
                         className="flex flex-col sm:flex-row gap-4 justify-center"
                     >
-                        <a href="#" className="btn btn-primary text-center py-3 px-6 rounded-lg font-semibold transition-all duration-300">Get Started</a>
-                        <a href="#" className="btn btn-secondary text-center py-3 px-6 rounded-lg font-semibold transition-all duration-300">Learn More</a>
+                        <GradientButton className="w-full sm:w-auto text-base py-3">Get Started</GradientButton>
+                        <GradientButton variant="variant" className="w-full sm:w-auto text-base py-3">Learn More</GradientButton>
                     </motion.div>
                 </div>
             </div>

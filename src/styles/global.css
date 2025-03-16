@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+    --radius: 0.5rem;
+  }
+}
+
 /* Custom base styles that extend Tailwind */
 @layer base {
   body {
@@ -218,7 +243,8 @@ p {
 
 @media (max-width: 768px) {
     section {
-        padding: 50px 0;
+        padding: 40px 0;
+        margin-bottom: 20px;
     }
     
     h1 {
@@ -235,14 +261,39 @@ p {
     
     p {
         font-size: 1rem;
+        line-height: 1.6;
     }
     
     .section-title {
-        margin-bottom: 30px;
+        margin-bottom: 24px;
     }
     
     .btn {
         font-size: 0.95rem;
+    }
+    
+    .stats-container {
+        gap: 16px;
+    }
+    
+    .chart-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    
+    .card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .hero-section {
+        padding-top: 80px;
+        padding-bottom: 40px;
+    }
+    
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }
 
@@ -263,4 +314,44 @@ p {
         width: 95%;
         padding: 0 10px;
     }
+}
+
+@layer base {
+  * {
+    @apply border-neutral-800;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Gradient Button Styles */
+.gradient-button {
+  background: linear-gradient(90deg, #5468ff 0%, #8B5CF6 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+}
+
+.gradient-button:hover {
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
+  transform: translateY(-1px);
+}
+
+.gradient-button:active {
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+  transform: translateY(1px);
+}
+
+.gradient-button-variant {
+  background: linear-gradient(90deg, #6366f1 0%, #a5b4fc 100%);
+}
+
+/* Mobile optimizations */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 } 

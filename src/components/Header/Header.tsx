@@ -1,48 +1,192 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { GradientButton } from '../ui/gradient-button';
+import { motion } from "framer-motion";
+import { Layers, Cpu, Network, PieChart } from 'lucide-react';
+import { cn } from "../../lib/utils";
 
 const Header: React.FC = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('Resource Allocation');
+  const [isMobile, setIsMobile] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const observerRefs = useRef<IntersectionObserver[]>([]);
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
+  const navItems = [
+    { name: 'Features', url: '#features', icon: Layers },
+    { name: 'Technology', url: '#technology', icon: Cpu },
+    { name: 'Network', url: '#network', icon: Network },
+    { name: 'Tokenomics', url: '#tokenomics', icon: PieChart }
+  ];
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    handleResize();
+    handleScroll();
+    
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+    
+    // Clean up previous observers
+    observerRefs.current.forEach(observer => observer.disconnect());
+    observerRefs.current = [];
+
+    // Set up intersection observers for each section
+    navItems.forEach(item => {
+      const sectionId = item.url.replace('#', '');
+      const section = document.getElementById(sectionId);
+      
+      if (section) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            // When section is intersecting with 40% or more visibility
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+              setActiveTab(item.name);
+            }
+          },
+          {
+            root: null, // viewport
+            rootMargin: "0px",
+            threshold: [0.4, 0.8], // trigger at 40% and 80% visibility
+          }
+        );
+        
+        observer.observe(section);
+        observerRefs.current.push(observer);
+      }
+    });
+    
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+      
+      // Clean up observers
+      observerRefs.current.forEach(observer => observer.disconnect());
+    };
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: typeof navItems[0]) => {
+    e.preventDefault();
+    setActiveTab(item.name);
+    
+    // Scroll to the section
+    const sectionId = item.url.replace('#', '');
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-[#030303]/95 shadow-md shadow-black/20 z-50 py-4">
-      <div className="container">
-        <nav className="flex justify-between items-center">
-          <a href="/web" className="text-2xl font-extrabold text-primary no-underline">AIIGo</a>
-          
-          <div 
-            className="md:hidden relative w-6 h-5 cursor-pointer z-50" 
-            onClick={toggleMobileMenu}
-          >
-            <span className={`absolute h-0.5 w-full bg-white transition-all duration-300 ${mobileMenuOpen ? 'top-2 rotate-45' : 'top-0'}`}></span>
-            <span className={`absolute h-0.5 w-full bg-white top-2 transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-            <span className={`absolute h-0.5 w-full bg-white transition-all duration-300 ${mobileMenuOpen ? 'top-2 -rotate-45' : 'top-4'}`}></span>
+    <header className={cn(
+      "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-background/90 backdrop-blur-md",
+      scrolled ? "py-2" : "py-3"
+    )}>
+      <div className="container mx-auto flex flex-row justify-between items-center px-4">
+        {/* Logo */}
+        <a href="/web" className="text-2xl font-extrabold text-primary no-underline z-50">AIIGo</a>
+        
+        {/* Desktop Navigation */}
+        <div className="flex-1 mx-4">
+          <div className="bg-background/80 backdrop-blur-md border border-white/10 rounded-full py-1 px-1 shadow-lg max-w-fit mx-auto hidden md:block">
+            <nav className="flex items-center space-x-1">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeTab === item.name;
+
+                return (
+                  <a
+                    key={item.name}
+                    href={item.url}
+                    onClick={(e) => handleNavClick(e, item)}
+                    className={cn(
+                      "relative px-5 py-2 text-sm font-medium rounded-full transition-all",
+                      isActive 
+                        ? "bg-primary/80 text-white" 
+                        : "text-white/70 hover:text-white hover:bg-white/5"
+                    )}
+                  >
+                    {item.name}
+                    {isActive && (
+                      <motion.div
+                        layoutId="navIndicator"
+                        className="absolute inset-0 rounded-full -z-10"
+                        initial={false}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </a>
+                );
+              })}
+            </nav>
           </div>
-          
-          <div className={`flex-1 flex justify-center transition-all duration-300 md:block ${mobileMenuOpen ? 'fixed inset-0 bg-[#030303] pt-20 px-5' : 'hidden'}`}>
-            <ul className={`flex flex-col md:flex-row p-0 m-0 list-none md:justify-center ${mobileMenuOpen ? 'items-center' : ''}`}>
-              <li className="md:mx-0"><a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-white/80 font-medium transition-all duration-300 py-2 px-4 block hover:text-primary">Features</a></li>
-              <li className="md:mx-0"><a href="#technology" onClick={() => setMobileMenuOpen(false)} className="text-white/80 font-medium transition-all duration-300 py-2 px-4 block hover:text-primary">Technology</a></li>
-              <li className="md:mx-0"><a href="#network" onClick={() => setMobileMenuOpen(false)} className="text-white/80 font-medium transition-all duration-300 py-2 px-4 block hover:text-primary">Network</a></li>
-              <li className="md:mx-0"><a href="#tokenomics" onClick={() => setMobileMenuOpen(false)} className="text-white/80 font-medium transition-all duration-300 py-2 px-4 block hover:text-primary">Resource Allocation</a></li>
-              
-              {/* Mobile-only button */}
-              <li className="md:hidden mt-4">
-                <a href="#" onClick={() => setMobileMenuOpen(false)} className="btn btn-primary inline-block py-3 px-6 rounded-lg font-semibold">Get Started</a>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="hidden md:block">
-            <a href="#" className="btn btn-primary">Get Started</a>
-          </div>
-        </nav>
+        </div>
+      </div>
+      
+      {/* Mobile Navigation - Fixed at bottom with maximum z-index */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-[9999]">
+        <div className="bg-black border-t border-white/20 py-3 shadow-2xl backdrop-blur-md">
+          <nav className="flex items-center justify-around max-w-md mx-auto">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.name;
+
+              return (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  onClick={(e) => handleNavClick(e, item)}
+                  className={cn(
+                    "relative p-2 transition-all",
+                    isActive ? "text-primary" : "text-white/70 hover:text-white/100"
+                  )}
+                >
+                  <Icon 
+                    size={28} 
+                    strokeWidth={isActive ? 2.5 : 1.5} 
+                    className={cn(
+                      "transition-all",
+                      isActive && "drop-shadow-[0_0_8px_rgba(84,104,255,0.7)]"
+                    )}
+                  />
+                  {isActive && (
+                    <motion.div
+                      layoutId="mobileIndicator"
+                      className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary"
+                      initial={false}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+        </div>
       </div>
     </header>
   );
 };
+
+// Add this to global.css instead of using inline styles
+// .scrollbar-hide::-webkit-scrollbar {
+//   display: none;
+// }
+// .scrollbar-hide {
+//   -ms-overflow-style: none;
+//   scrollbar-width: none;
+// }
 
 export default Header; 
