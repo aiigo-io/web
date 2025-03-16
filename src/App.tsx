@@ -12,7 +12,7 @@ import Footer from './components/Footer/Footer';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-24 md:pb-0">
       <Header />
       <HeroGeometric 
         badge="AIIGo Platform"

@@ -188,14 +188,13 @@ const ResourcePieChart: React.FC<PieChartComponentProps> = ({
                 onMouseEnter={() => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(null)}
                 style={{
-                  borderLeft: `3px solid ${resource.color}`
+                  borderLeft: `3px solid ${resource.color}`,
                 }}
               >
                 <div className="p-2 rounded-full mb-2" style={{ backgroundColor: resource.color + "20" }}>
                   {resource.icon || <div className="w-5 h-5 rounded-full" style={{ backgroundColor: resource.color }} />}
                 </div>
                 <div className="text-center">
-                  <p className="text-sm text-white/80 font-medium mb-1">{resource.name}</p>
                   <p className="text-xl font-bold" style={{ color: resource.color }}>{resource.value}%</p>
                 </div>
               </motion.div>
