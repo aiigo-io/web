@@ -9,11 +9,13 @@ import Network from './components/Network/Network';
 import Tokenomics from './components/Tokenomics/Tokenomics';
 import CTA from './components/CTA/CTA';
 import Footer from './components/Footer/Footer';
+import SocialLinks from './components/ui/SocialLinks';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen pb-24 md:pb-0">
+<div className="min-h-screen pb-24 md:pb-0">
       <Header />
+      <SocialLinks />
       <HeroGeometric 
         badge="AIIGo Platform"
         title1="The Next Generation"
@@ -23,7 +25,7 @@ const App: React.FC = () => {
       <Stats />
       <Features />
       <Technology />
-      <Network />
+      <Network />    
       <Tokenomics />
       <CTA />
       <Footer />

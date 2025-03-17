@@ -1,0 +1,6 @@
+---
+description: 
+globs: src/**,*.js
+alwaysApply: false
+---
+When you add new componets, UI layout, you should use browser tools to check how the changes made to the page and console logs
