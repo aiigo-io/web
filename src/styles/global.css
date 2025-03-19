@@ -93,6 +93,11 @@
     --darker-color: #020202;
     --light-color: #f7f7f9;
     --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    --gradient-subtle: linear-gradient(45deg, rgba(84, 104, 255, 0.1), rgba(108, 99, 255, 0.1));
+    --gradient-glow: linear-gradient(45deg, rgba(84, 104, 255, 0.5), rgba(108, 99, 255, 0.5));
+    --surface-color: rgba(255, 255, 255, 0.03);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-gradient: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
 }
 
 * {
@@ -112,6 +117,21 @@ body {
     color: white;
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* Add a subtle noise texture overlay to the entire site */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0.3;
 }
 
 img {
@@ -325,25 +345,71 @@ p {
   }
 }
 
-/* Gradient Button Styles */
+/* Enhanced gradient button styles */
 .gradient-button {
-  background: linear-gradient(90deg, #5468ff 0%, #8B5CF6 100%);
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+    @apply bg-gradient-to-r from-primary to-secondary py-3 px-6 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 active:shadow-md relative overflow-hidden border border-white/10;
 }
 
-.gradient-button:hover {
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
-  transform: translateY(-1px);
+.gradient-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0), rgba(255,255,255,0.1), rgba(255,255,255,0));
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    z-index: 1;
 }
 
-.gradient-button:active {
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
-  transform: translateY(1px);
+.gradient-button:hover::before {
+    transform: translateX(100%);
 }
 
 .gradient-button-variant {
-  background: linear-gradient(90deg, #6366f1 0%, #a5b4fc 100%);
+    @apply bg-transparent border-2 border-primary text-primary hover:bg-primary/10 py-3 px-6 rounded-full font-medium transition-all duration-300;
+}
+
+/* Glassmorphism card styles */
+.glass-card {
+    @apply bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl shadow-xl;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Animated gradient background */
+.animated-gradient {
+    background: linear-gradient(
+        -45deg, 
+        rgba(84, 104, 255, 0.1),
+        rgba(108, 99, 255, 0.1),
+        rgba(243, 63, 94, 0.1),
+        rgba(84, 104, 255, 0.1)
+    );
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 3D Transform Hover Effect */
+.transform-3d-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.transform-3d-hover:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
 
 /* Mobile optimizations */

@@ -1,35 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GradientButton } from '../ui/gradient-button';
 import { motion } from "framer-motion";
-import { Layers, Cpu, Network, PieChart } from 'lucide-react';
+import { Layers, Cpu, Network, PieChart, Menu, X, Users } from 'lucide-react';
 import { cn } from "../../lib/utils";
+import { GradientButton } from '../ui/gradient-button';
 
 const Header: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('Resource Allocation');
-  const [isMobile, setIsMobile] = useState(false);
+  const [activeTab, setActiveTab] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const observerRefs = useRef<IntersectionObserver[]>([]);
 
   const navItems = [
     { name: 'Features', url: '#features', icon: Layers },
+    { name: 'Partners', url: '#partners', icon: Users },
     { name: 'Technology', url: '#technology', icon: Cpu },
     { name: 'Network', url: '#network', icon: Network },
     { name: 'Tokenomics', url: '#tokenomics', icon: PieChart }
   ];
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    handleResize();
     handleScroll();
-    
-    window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
     
     // Clean up previous observers
@@ -62,7 +56,6 @@ const Header: React.FC = () => {
     });
     
     return () => {
-      window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
       
       // Clean up observers
@@ -73,11 +66,7 @@ const Header: React.FC = () => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: typeof navItems[0]) => {
     e.preventDefault();
     setActiveTab(item.name);
-    
-    // Remove focus from the clicked element to prevent persistent focus border
-    if (e.currentTarget) {
-      e.currentTarget.blur();
-    }
+    setIsMobileMenuOpen(false);
     
     // Scroll to the section
     const sectionId = item.url.replace('#', '');
@@ -88,116 +77,170 @@ const Header: React.FC = () => {
   };
 
   return (
-    <>
-      <header className={cn(
-        "fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-background/90 backdrop-blur-md",
-        scrolled ? "py-2" : "py-3"
-      )}>
-        <div className="container mx-auto flex flex-row justify-between items-center px-4">
-          {/* Logo */}
-          <a href="/web" className="text-2xl font-extrabold text-primary no-underline z-50">AIIGo</a>
-          
-          {/* Desktop Navigation */}
-          <div className="flex-1 mx-4">
-            <div className="bg-background/80 backdrop-blur-md border border-white/10 rounded-full py-1 px-1 shadow-lg max-w-fit mx-auto hidden md:block">
-              <nav className="flex items-center space-x-1">
-                {navItems.map((item) => {
-                  const Icon = item.icon;
-                  const isActive = activeTab === item.name;
-
-                  return (
-                    <a
-                      key={item.name}
-                      href={item.url}
-                      onClick={(e) => handleNavClick(e, item)}
-                      className={cn(
-                        "relative px-5 py-2 text-sm font-medium rounded-full transition-all",
-                        isActive 
-                          ? "bg-primary/80 text-white" 
-                          : "text-white/70 hover:text-white hover:bg-white/5"
-                      )}
-                    >
-                      {item.name}
-                      {isActive && (
-                        <motion.div
-                          layoutId="navIndicator"
-                          className="absolute inset-0 rounded-full -z-10"
-                          initial={false}
-                          transition={{
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 30,
-                          }}
-                        />
-                      )}
-                    </a>
-                  );
-                })}
-              </nav>
-            </div>
-          </div>
-        </div>
-      </header>
-      
-      {/* Mobile Navigation - Completely separate from header */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full z-[9999] bg-black border-t border-white/20 py-2 pb-5 shadow-2xl backdrop-blur-md">
-        <div className="flex items-center justify-around max-w-md mx-auto">
+    <header 
+      className={cn(
+        "fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300",
+        scrolled 
+          ? "py-3 backdrop-blur-md bg-black/60" 
+          : "py-5 bg-transparent"
+      )}
+    >
+      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+        {/* Logo */}
+        <a 
+          href="#" 
+          className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-rose-400"
+        >
+          AIIGo
+        </a>
+        
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center space-x-1 bg-white/[0.03] backdrop-blur-sm rounded-full border border-white/10 p-1">
           {navItems.map((item) => {
-            const Icon = item.icon;
             const isActive = activeTab === item.name;
-
             return (
               <a
                 key={item.name}
                 href={item.url}
                 onClick={(e) => handleNavClick(e, item)}
                 className={cn(
-                  "relative p-3 transition-all outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 select-none",
-                  "active:scale-95 active:opacity-80",
+                  "relative px-5 py-2 text-sm font-medium rounded-full transition-all duration-200",
                   isActive 
-                    ? "text-primary bg-primary/5 rounded-lg" 
-                    : "text-white/70 hover:text-white/100"
+                    ? "text-white" 
+                    : "text-white/60 hover:text-white"
                 )}
-                style={{ 
-                  WebkitTapHighlightColor: 'transparent',
-                  WebkitAppearance: 'none',
-                  WebkitUserSelect: 'none',
-                  MozUserSelect: 'none',
-                  msUserSelect: 'none',
-                  outline: 'none'
-                }}
-                tabIndex={-1}
-                draggable="false"
-                aria-label={item.name}
               >
-                <div className="relative flex items-center justify-center">
-                  <Icon 
-                    size={24} 
-                    strokeWidth={isActive ? 2.5 : 1.5} 
-                    className={cn(
-                      "transition-all",
-                      isActive && "drop-shadow-[0_0_8px_rgba(84,104,255,0.7)]"
-                    )}
+                {isActive && (
+                  <motion.div
+                    layoutId="navIndicator"
+                    className="absolute inset-0 bg-white/10 rounded-full -z-10"
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                    }}
                   />
-                  {isActive && (
-                    <motion.div
-                      layoutId="mobileIndicator"
-                      className="absolute -top-3 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(84,104,255,0.7)]"
-                      initial={false}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                </div>
+                )}
+                {item.name}
               </a>
             );
           })}
+        </nav>
+        
+        {/* Connect Button */}
+        <div className="hidden lg:block">
+          <GradientButton>Connect</GradientButton>
         </div>
+        
+        {/* Mobile Menu Button */}
+        <button
+          className="lg:hidden p-2 rounded-full bg-white/5 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
-    </>
+      
+      {/* Mobile Menu */}
+      <motion.div 
+        className={cn(
+          "fixed inset-0 z-40 lg:hidden",
+          scrolled ? "bg-black" : "bg-black/95",
+          !isMobileMenuOpen && "pointer-events-none"
+        )}
+        initial="closed"
+        animate={isMobileMenuOpen ? "open" : "closed"}
+        variants={{
+          open: { opacity: 1 },
+          closed: { opacity: 0 },
+        }}
+        transition={{ duration: 0.2 }}
+      >
+        <motion.div 
+          className="container mx-auto px-4 py-16 h-full flex flex-col relative"
+          variants={{
+            open: { y: 0, opacity: 1 },
+            closed: { y: -20, opacity: 0 }
+          }}
+          transition={{ duration: 0.2, delay: 0.1 }}
+        >
+          <div className="flex justify-between items-center mb-8">
+            <a 
+              href="#" 
+              className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-rose-400"
+            >
+              AIIGo
+            </a>
+            <button
+              className="p-2 rounded-full bg-white/5 text-white hover:bg-white/10 transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <X size={24} />
+            </button>
+          </div>
+          
+          <div className="py-4 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">AIIGo Ecosystem</h2>
+          </div>
+          
+          <nav className="flex flex-col">
+            {navItems.map((item, index) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.name;
+              return (
+                <motion.a
+                  key={item.name}
+                  href={item.url}
+                  onClick={(e) => handleNavClick(e, item)}
+                  className={cn(
+                    "flex items-center py-5 text-xl font-medium transition-all duration-300 border-b border-white/10",
+                    isActive 
+                      ? "text-white" 
+                      : "text-white hover:text-white"
+                  )}
+                  variants={{
+                    open: { 
+                      x: 0, 
+                      opacity: 1,
+                      transition: { delay: 0.1 + index * 0.1 }
+                    },
+                    closed: { 
+                      x: -20, 
+                      opacity: 0,
+                      transition: { delay: 0 }
+                    }
+                  }}
+                >
+                  <Icon className="mr-3 h-6 w-6" />
+                  {item.name}
+                  {isActive && (
+                    <div className="ml-2 h-1 w-16 bg-blue-500 rounded-full"></div>
+                  )}
+                </motion.a>
+              );
+            })}
+          </nav>
+          
+          <motion.div 
+            className="mt-auto mb-8"
+            variants={{
+              open: { 
+                y: 0, 
+                opacity: 1,
+                transition: { delay: 0.3 }
+              },
+              closed: { 
+                y: 20, 
+                opacity: 0,
+                transition: { delay: 0 }
+              }
+            }}
+          >
+            <GradientButton className="w-full">Connect</GradientButton>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </header>
   );
 };
 

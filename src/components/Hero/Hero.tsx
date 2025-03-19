@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
           </p>
           <div className="flex flex-col md:flex-row gap-5">
             <GradientButton>Start Computing Today</GradientButton>
-            <GradientButton variant="variant">Learn More</GradientButton>
+            <GradientButton variant="outline">Learn More</GradientButton>
           </div>
         </div>
         <img 

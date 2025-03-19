@@ -1,7 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Zap, Shield, Gauge, ServerOff, Cpu, GitMerge, LucideIcon } from 'lucide-react';
 
 interface Benefit {
-  icon: string;
+  icon: React.ReactNode;
   title: string;
   description: string;
 }
@@ -9,66 +11,156 @@ interface Benefit {
 const Technology: React.FC = () => {
   const benefitsData: Benefit[] = [
     {
-      icon: '⚡',
+      icon: <Zap className="h-6 w-6 text-amber-400" />,
       title: 'Energy Efficient',
       description: 'Optimized algorithms that use minimal resources compared to traditional AI systems'
     },
     {
-      icon: '🔒',
+      icon: <Shield className="h-6 w-6 text-emerald-400" />,
       title: 'Highly Secure',
       description: 'Advanced encryption protects your models and data'
     },
     {
-      icon: '⚙️',
+      icon: <Gauge className="h-6 w-6 text-indigo-400" />,
       title: 'Scalable',
       description: 'Handles millions of operations per second across distributed systems'
     }
   ];
+  
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
 
   return (
-    <section id="technology" className="bg-[#030303] py-20">
-      <div className="container">
-        <div className="section-title">
-          <h2>Our Technology</h2>
-        </div>
-        <div className="flex flex-wrap items-center">
-          <div className="flex-1 min-w-[300px] pr-0 lg:pr-10 mb-10 lg:mb-0">
-            <h3 className="text-2xl font-bold mb-4">Next-Generation AI Infrastructure</h3>
-            <p className="mb-4 text-white/70">
+    <div className="container py-20">
+      <div className="section-title text-center max-w-3xl mx-auto mb-16">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          Our Technology
+        </motion.h2>
+        <motion.p
+          className="text-white/60 mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          Next-generation AI infrastructure designed for performance and efficiency
+        </motion.p>
+      </div>
+      
+      {/* Main content section with image and description */}
+      <div className="glass-card p-8 md:p-10 rounded-3xl border border-white/10 mb-16 overflow-hidden relative">
+        <div className="absolute -inset-4 bg-gradient-to-br from-indigo-500/10 to-rose-500/10 rounded-2xl blur-3xl -z-10"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl md:text-3xl font-bold mb-6">AI Infrastructure Reimagined</h3>
+            <p className="mb-6 text-white/70">
               AIIGo is built on a cutting-edge distributed computing architecture designed for optimal performance, 
               security, and energy efficiency. Our innovative resource allocation system maximizes computing power
               while minimizing energy consumption.
             </p>
-            <p className="mb-8 text-white/70">
-              The platform supports various AI and machine learning frameworks, distributed computing, and seamless integration 
-              with existing cloud systems.
-            </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-              {benefitsData.map((benefit, index) => (
-                <div key={index} className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 rounded-full bg-[#111] flex items-center justify-center text-xl mb-3 shadow-md shadow-black/20">
-                    {benefit.icon}
-                  </div>
-                  <h4 className="text-lg font-bold mb-2 text-white">{benefit.title}</h4>
-                  <p className="text-white/60 text-sm">{benefit.description}</p>
-                </div>
-              ))}
+            <div className="relative mb-8 pl-4 border-l-2 border-primary">
+              <p className="text-white/70">
+                The platform supports various AI and machine learning frameworks, distributed computing, and seamless integration 
+                with existing cloud systems.
+              </p>
             </div>
-          </div>
+            
+            <div className="flex flex-wrap gap-4">
+              <div className="glass-card px-5 py-3 rounded-lg border border-white/10 flex items-center gap-3 transform-3d-hover">
+                <GitMerge className="h-5 w-5 text-indigo-400" />
+                <span className="text-sm font-medium">Distributed Processing</span>
+              </div>
+              <div className="glass-card px-5 py-3 rounded-lg border border-white/10 flex items-center gap-3 transform-3d-hover">
+                <ServerOff className="h-5 w-5 text-rose-400" />
+                <span className="text-sm font-medium">Low Latency</span>
+              </div>
+            </div>
+          </motion.div>
           
-          <div className="flex-1 min-w-[300px]">
-            <div className="mb-8">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="glass-card overflow-hidden rounded-2xl border border-white/10 shadow-xl">
               <img 
-                src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3" 
-                alt="AI Computing Technology" 
-                className="max-w-full rounded-lg shadow-xl shadow-black/20 border border-[#111]"
+                src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2000&auto=format&fit=crop" 
+                alt="AI Computing Server Infrastructure" 
+                className="w-full rounded-t-lg"
               />
+              
+              <div className="p-5 bg-gradient-to-b from-black/40 to-transparent">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Cpu className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-medium">AIIGo Technology Stack</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    <span className="text-xs text-white/60">Active</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+      
+      {/* Benefits section */}
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        {benefitsData.map((benefit, index) => (
+          <motion.div 
+            key={index} 
+            className="glass-card p-8 rounded-xl backdrop-blur-sm transform-3d-hover border border-white/10"
+            variants={itemVariants}
+          >
+            <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center mb-6">
+              {benefit.icon}
+            </div>
+            <h4 className="text-xl font-semibold mb-3">{benefit.title}</h4>
+            <p className="text-white/70">{benefit.description}</p>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
   );
 };
 

@@ -1,12 +1,21 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ResourcePieChart, ResourceData } from '../../components/ui/resource-pie-chart';
-import { Server, HardDrive, Database, PieChart, Users } from 'lucide-react';
+import { Server, HardDrive, Database, PieChart, Users, ExternalLink, Globe, Shield, Cpu, Layers } from 'lucide-react';
 
 interface ResourceAllocation {
   label: string;
   value: string;
   percentage?: number;
   color?: string;
+}
+
+interface EcosystemCard {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;
+  link?: string;
 }
 
 const Tokenomics: React.FC = () => {
@@ -53,41 +62,136 @@ const Tokenomics: React.FC = () => {
     },
   ];
 
+  const ecosystemCards: EcosystemCard[] = [
+    {
+      title: 'Global Computing',
+      description: 'Access AI computing resources in 190+ countries with unified performance',
+      icon: <Globe className="h-6 w-6" />,
+      color: 'from-indigo-500 to-blue-500',
+      link: '#'
+    },
+    {
+      title: 'Developer Tools',
+      description: 'Comprehensive SDKs and APIs for building on the AIIGo platform',
+      icon: <Cpu className="h-6 w-6" />,
+      color: 'from-rose-500 to-pink-500',
+      link: '#'
+    },
+    {
+      title: 'Growth Program',
+      description: 'Turn your devices into powerful AI computing hubs with rewards',
+      icon: <Layers className="h-6 w-6" />,
+      color: 'from-amber-500 to-orange-500',
+      link: '#'
+    },
+    {
+      title: 'Enterprise Security',
+      description: 'Military-grade encryption for all computing tasks in the network',
+      icon: <Shield className="h-6 w-6" />,
+      color: 'from-emerald-500 to-green-500',
+      link: '#'
+    }
+  ];
+
   return (
-    <section id="tokenomics" className="bg-[#030303] py-20">
-      <div className="container">
-        <div className="section-title">
-          <h2>Resource Allocation</h2>
-        </div>
-        <div className="flex flex-wrap items-center gap-10">
+    <div className="container">
+      <div className="section-title text-center max-w-3xl mx-auto">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          AIIGo Ecosystem
+        </motion.h2>
+        <motion.p
+          className="text-white/60 mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          A comprehensive network of AI computing resources, tools, and services built for sustainability
+        </motion.p>
+      </div>
+
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 md:mt-16"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ staggerChildren: 0.1, duration: 0.3 }}
+        viewport={{ once: true }}
+      >
+        {ecosystemCards.map((card, index) => (
+          <motion.a
+            key={index}
+            href={card.link}
+            className="glass-card p-6 rounded-2xl border border-white/5 transform-3d-hover group relative overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 -z-10`}></div>
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-white/0 to-white/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm"></div>
+            
+            <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${card.color} bg-opacity-10 flex items-center justify-center mb-4 text-white group-hover:scale-110 transition-transform duration-300`}>
+              {card.icon}
+            </div>
+            
+            <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-primary transition-colors duration-300">
+              {card.title}
+            </h3>
+            
+            <p className="text-white/70 mb-4">
+              {card.description}
+            </p>
+            
+            <div className="flex items-center text-white/50 group-hover:text-primary transition-colors duration-300">
+              <span className="text-sm">Learn more</span>
+              <ExternalLink className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+            </div>
+          </motion.a>
+        ))}
+      </motion.div>
+
+      <div className="mt-24">
+        <motion.div 
+          className="flex flex-col lg:flex-row items-center gap-10 glass-card p-8 md:p-10 rounded-2xl border border-white/5"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
           <div className="flex-1 min-w-[300px]">
-            <ResourcePieChart 
-              data={pieChartData} 
-              title="AIIGo Computing Resource Distribution"
-              description="Optimized capacity allocation for all users"
-            />
-          </div>
-          
-          <div className="flex-1 min-w-[300px]">
-            <h3 className="text-2xl font-bold mb-4">Sustainable AI Computing</h3>
-            <p className="text-white/70 mb-5">
+            <h3 className="text-2xl font-bold mb-4">Resource Allocation</h3>
+            <p className="text-white/70 mb-6">
               Our computing resource allocation is designed to provide accessible AI computing power 
               while ensuring long-term sustainability and growth. The computing capacity is distributed 
               to maximize availability for all users.
             </p>
             
-            <ul className="space-y-3 border-t border-gray-700/50 pt-5">
+            <ul className="space-y-3 border-t border-white/10 pt-5">
               {resourceAllocationData.map((stat, index) => (
-                <li key={index} className="flex justify-between items-center py-2 border-b border-gray-800/50">
+                <li key={index} className="flex justify-between items-center py-2 border-b border-white/10">
                   <span className="font-medium text-white/80">{stat.label}</span>
                   <span className="font-bold text-primary">{stat.value}</span>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
+          
+          <div className="flex-1 min-w-[300px] mt-6 lg:mt-0">
+            <ResourcePieChart 
+              data={pieChartData} 
+              title="Computing Resource Distribution"
+              description="Optimized for sustainability and growth"
+            />
+          </div>
+        </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 

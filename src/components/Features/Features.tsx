@@ -1,10 +1,11 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { ChevronRight, Cpu, Shield, Zap } from 'lucide-react';
 
 interface FeatureItem {
   title: string;
   description: string;
-  image: string;
-  alt: string;
+  icon: React.ReactNode;
 }
 
 const Features: React.FC = () => {
@@ -12,59 +13,95 @@ const Features: React.FC = () => {
     {
       title: 'Cloud Processing',
       description: 'Access AIIGo computing resources directly from your devices without requiring expensive hardware or excessive energy consumption.',
-      image: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3',
-      alt: 'Cloud Computing'
+      icon: <Cpu className="w-6 h-6 text-indigo-400" />
     },
     {
       title: 'Advanced Security',
       description: 'Our platform uses state-of-the-art encryption and security protocols to ensure your AI models and data remain private and secure.',
-      image: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3',
-      alt: 'Security'
+      icon: <Shield className="w-6 h-6 text-rose-400" />
     },
     {
       title: 'High Performance',
       description: 'Lightning-fast processing speeds with optimized resource allocation, making AIIGo perfect for demanding AI workloads.',
-      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1834&auto=format&fit=crop&ixlib=rb-4.0.3',
-      alt: 'Performance'
+      icon: <Zap className="w-6 h-6 text-amber-400" />
     }
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
   return (
-    <section id="features" className="bg-[#050505] py-12 sm:py-16 md:py-20">
-      <div className="container">
-        <div className="section-title">
-          <h2>Key Features</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
-          {featuresData.map((feature, index) => (
-            <div 
-              key={index} 
-              className="bg-[#0a0a0a] rounded-2xl overflow-hidden shadow-md shadow-black/40 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl"
-              style={{ touchAction: 'manipulation' }}
-            >
-              <div className="w-full h-36 sm:h-48 bg-[#111] flex items-center justify-center overflow-hidden">
-                <img 
-                  src={feature.image} 
-                  alt={feature.alt} 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3">{feature.title}</h3>
-                <p className="text-sm sm:text-base text-white/60 mb-3 sm:mb-4">{feature.description}</p>
-                <a 
-                  href="#" 
-                  className="inline-flex items-center text-primary font-medium hover:underline group py-1"
-                  role="button"
-                >
-                  <span>Learn More</span> <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+    <div className="container">
+      <div className="section-title text-center max-w-3xl mx-auto">
+        <motion.h2 
+          className="text-3xl md:text-4xl font-bold"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          All In One AI Platform
+        </motion.h2>
+        <motion.p 
+          className="text-white/60 mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          A comprehensive suite of tools and services designed to make AI computing accessible, efficient, and user-friendly.
+        </motion.p>
       </div>
-    </section>
+
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 mt-12 md:mt-16"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        {featuresData.map((feature, index) => (
+          <motion.div 
+            key={index} 
+            className="glass-card p-6 md:p-8 border border-white/5 rounded-2xl transform-3d-hover"
+            variants={itemVariants}
+          >
+            <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white/[0.03] border border-white/10">
+              {feature.icon}
+            </div>
+            <h3 className="text-xl md:text-2xl font-semibold mb-4">{feature.title}</h3>
+            <p className="text-white/70 mb-6">{feature.description}</p>
+            <a 
+              href="#" 
+              className="inline-flex items-center text-primary font-medium hover:underline group"
+              role="button"
+            >
+              <span>Learn More</span> 
+              <ChevronRight className="ml-1 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
   );
 };
 
