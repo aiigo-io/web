@@ -3,4 +3,4 @@ description:
 globs: src/**,*.js
 alwaysApply: false
 ---
-When you add new componets, UI layout, you should use browser tools to check how the changes made to the page and console logs
+When you add new componets, UI layout, you should use browser tools to check how the changes made to the page and console logs, you must check them to see if the change made  satisfy my request, if not you must fix them again, then check again.

@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Users } from 'lucide-react';
 import './Partners.css'; // We'll create this file next
 
 // Using the exact same partner logos from weroam
@@ -124,9 +123,8 @@ const Partners: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="flex items-center justify-center gap-2 mb-4"
+          className="mb-4"
         >
-          <Users className="w-6 h-6 text-primary" />
           <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">
             Our Partners
           </h2>

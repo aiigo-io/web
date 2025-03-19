@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from "framer-motion";
-import { Layers, Cpu, PieChart, Menu, X, Users } from 'lucide-react';
+import { Layers, Cpu, PieChart, Menu, X, Users, BookOpen } from 'lucide-react';
 import { cn } from "../../lib/utils";
 import { GradientButton } from '../ui/gradient-button';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [activeTab, setActiveTab] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const observerRefs = useRef<IntersectionObserver[]>([]);
+  const location = useLocation();
 
   const navItems = [
-    { name: 'Features', url: '#features', icon: Layers },
-    { name: 'Technology', url: '#technology', icon: Cpu },
-    { name: 'Tokenomics', url: '#tokenomics', icon: PieChart },
-    { name: 'Partners', url: '#partners', icon: Users },
+    { name: 'Features', url: '/#features', icon: Layers },
+    { name: 'Technology', url: '/#technology', icon: Cpu },
+    { name: 'Ecosystem', url: '/#tokenomics', icon: PieChart },
+    { name: 'Partners', url: '/#partners', icon: Users },
   ];
 
   useEffect(() => {
@@ -29,30 +31,35 @@ const Header: React.FC = () => {
     observerRefs.current.forEach(observer => observer.disconnect());
     observerRefs.current = [];
 
-    // Set up intersection observers for each section
-    navItems.forEach(item => {
-      const sectionId = item.url.replace('#', '');
-      const section = document.getElementById(sectionId);
+    // Only set up intersection observers if we're on the home page
+    if (location.pathname === '/') {
+      // Set up intersection observers for each section
+      navItems.forEach(item => {
+        const sectionId = item.url.replace('/#', '');
+        const section = document.getElementById(sectionId);
 
-      if (section) {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            // When section is intersecting with 40% or more visibility
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
-              setActiveTab(item.name);
+        if (section) {
+          const observer = new IntersectionObserver(
+            ([entry]) => {
+              // When section is intersecting with 40% or more visibility
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+                setActiveTab(item.name);
+              }
+            },
+            {
+              root: null, // viewport
+              rootMargin: "0px",
+              threshold: [0.4, 0.8], // trigger at 40% and 80% visibility
             }
-          },
-          {
-            root: null, // viewport
-            rootMargin: "0px",
-            threshold: [0.4, 0.8], // trigger at 40% and 80% visibility
-          }
-        );
+          );
 
-        observer.observe(section);
-        observerRefs.current.push(observer);
-      }
-    });
+          observer.observe(section);
+          observerRefs.current.push(observer);
+        }
+      });
+    } else if (location.pathname === '/whitepaper') {
+      setActiveTab('Whitepaper');
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -60,18 +67,31 @@ const Header: React.FC = () => {
       // Clean up observers
       observerRefs.current.forEach(observer => observer.disconnect());
     };
-  }, []);
+  }, [location.pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: typeof navItems[0]) => {
     e.preventDefault();
     setActiveTab(item.name);
     setIsMobileMenuOpen(false);
 
-    // Scroll to the section
-    const sectionId = item.url.replace('#', '');
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+    // If it's an on-page section
+    if (item.url.startsWith('/#')) {
+      const sectionId = item.url.replace('/#', '');
+      
+      // If we're not on home page, navigate to home first with the hash
+      if (location.pathname !== '/') {
+        window.location.href = `/#${sectionId}`;
+        return;
+      }
+      
+      // If we're already on home page, just scroll to section
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // Navigate to the page
+      window.location.href = item.url;
     }
   };
 
@@ -86,22 +106,26 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#"
+        <Link
+          to="/"
           className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-rose-400"
         >
           AIIGo
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-1 bg-white/[0.03] backdrop-blur-sm rounded-full border border-white/10 p-1">
           {navItems.map((item) => {
             const isActive = activeTab === item.name;
             return (
-              <a
+              <Link
                 key={item.name}
-                href={item.url}
-                onClick={(e) => handleNavClick(e, item)}
+                to={item.url.replace('#', '')}
+                onClick={(e) => {
+                  if (item.url.includes('#')) {
+                    handleNavClick(e, item);
+                  }
+                }}
                 className={cn(
                   "relative px-5 py-2 text-sm font-medium rounded-full transition-all duration-200",
                   isActive
@@ -121,7 +145,7 @@ const Header: React.FC = () => {
                   />
                 )}
                 {item.name}
-              </a>
+              </Link>
             );
           })}
         </nav>
@@ -164,12 +188,13 @@ const Header: React.FC = () => {
           transition={{ duration: 0.2, delay: 0.1 }}
         >
           <div className="flex justify-between items-center mb-8">
-            <a
-              href="#"
+            <Link
+              to="/"
               className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-rose-400"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               AIIGo
-            </a>
+            </Link>
             <button
               className="p-2 rounded-full bg-white/5 text-white hover:bg-white/10 transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -187,16 +212,8 @@ const Header: React.FC = () => {
               const Icon = item.icon;
               const isActive = activeTab === item.name;
               return (
-                <motion.a
+                <motion.div
                   key={item.name}
-                  href={item.url}
-                  onClick={(e) => handleNavClick(e, item)}
-                  className={cn(
-                    "flex items-center py-5 text-xl font-medium transition-all duration-300 border-b border-white/10",
-                    isActive
-                      ? "text-white"
-                      : "text-white hover:text-white"
-                  )}
                   variants={{
                     open: {
                       x: 0,
@@ -210,12 +227,42 @@ const Header: React.FC = () => {
                     }
                   }}
                 >
-                  <Icon className="mr-3 h-6 w-6" />
-                  {item.name}
-                  {isActive && (
-                    <div className="ml-2 h-1 w-16 bg-blue-500 rounded-full"></div>
+                  {item.url.includes('#') ? (
+                    <a
+                      href={item.url}
+                      onClick={(e) => handleNavClick(e, item)}
+                      className={cn(
+                        "flex items-center py-5 text-xl font-medium transition-all duration-300 border-b border-white/10",
+                        isActive
+                          ? "text-white"
+                          : "text-white hover:text-white"
+                      )}
+                    >
+                      <Icon className="mr-3 h-6 w-6" />
+                      {item.name}
+                      {isActive && (
+                        <div className="ml-2 h-1 w-16 bg-blue-500 rounded-full"></div>
+                      )}
+                    </a>
+                  ) : (
+                    <Link
+                      to={item.url}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        "flex items-center py-5 text-xl font-medium transition-all duration-300 border-b border-white/10",
+                        isActive
+                          ? "text-white"
+                          : "text-white hover:text-white"
+                      )}
+                    >
+                      <Icon className="mr-3 h-6 w-6" />
+                      {item.name}
+                      {isActive && (
+                        <div className="ml-2 h-1 w-16 bg-blue-500 rounded-full"></div>
+                      )}
+                    </Link>
                   )}
-                </motion.a>
+                </motion.div>
               );
             })}
           </nav>

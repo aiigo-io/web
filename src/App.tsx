@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/global.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import { HeroGeometric } from './components/ui/shape-landing-hero';
 import Stats from './components/Stats/Stats';
@@ -9,15 +10,13 @@ import Technology from './components/Technology/Technology';
 import Tokenomics from './components/Tokenomics/Tokenomics';
 import CTA from './components/CTA/CTA';
 import Footer from './components/Footer/Footer';
+import Whitepaper from './components/Whitepaper/Whitepaper';
+import ScrollToTop from './components/ScrollToTop';
 
-const App: React.FC = () => {
+// Landing page component
+const Home: React.FC = () => {
   return (
-    <div className="min-h-screen pb-24 md:pb-0 bg-[#030303]">
-      {/* Subtle noise texture overlay is added in global.css */}
-
-      {/* Fixed elements */}
-      <Header />
-
+    <>
       {/* Main content */}
       <main>
         {/* Hero section with 3D globe */}
@@ -68,13 +67,42 @@ const App: React.FC = () => {
           <div className="absolute inset-0 animated-gradient opacity-30"></div>
           <CTA />
         </section>
-
       </main>
+    </>
+  );
+};
 
+// Whitepaper page component
+const WhitepaperPage: React.FC = () => {
+  return (
+    <main className="pt-20">
+      <section className="relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/[0.03] to-transparent"></div>
+        <Whitepaper />
+      </section>
+    </main>
+  );
+};
 
-      {/* Footer */}
-      <Footer />
-    </div>
+const App: React.FC = () => {
+  return (
+    <Router>
+      <ScrollToTop />
+      <div className="min-h-screen pb-24 md:pb-0 bg-[#030303]">
+        {/* Subtle noise texture overlay is added in global.css */}
+
+        {/* Fixed elements */}
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/whitepaper" element={<WhitepaperPage />} />
+        </Routes>
+
+        {/* Footer */}
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

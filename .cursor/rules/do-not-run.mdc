@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Do not run npm start after you made changes, I will run it always, you don't need to run it again

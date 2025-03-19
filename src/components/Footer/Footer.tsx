@@ -9,6 +9,7 @@ import {
   MessageSquare,
   Phone
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { GradientButton } from '../ui/gradient-button';
 
 interface FooterLink {
@@ -65,7 +66,7 @@ const Footer: React.FC = () => {
       title: 'Resources',
       links: [
         { name: 'Learn', url: '#' },
-        { name: 'Whitepaper', url: '#' },
+        { name: 'Whitepaper', url: '/whitepaper' },
         { name: 'FAQ', url: '#' },
         { name: 'News', url: '#' },
         { name: 'Blog', url: '#' },
@@ -125,12 +126,21 @@ const Footer: React.FC = () => {
                 <ul className="space-y-3">
                   {column.links.map((link, idx) => (
                     <li key={idx} className="text-sm">
-                      <a 
-                        href={link.url} 
-                        className="text-white/60 hover:text-primary transition-colors duration-200"
-                      >
-                        {link.name}
-                      </a>
+                      {link.url.startsWith('/') ? (
+                        <Link 
+                          to={link.url} 
+                          className="text-white/60 hover:text-primary transition-colors duration-200"
+                        >
+                          {link.name}
+                        </Link>
+                      ) : (
+                        <a 
+                          href={link.url} 
+                          className="text-white/60 hover:text-primary transition-colors duration-200"
+                        >
+                          {link.name}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
