@@ -86,7 +86,7 @@ const WhitepaperPage: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <Router basename="/web">
       <ScrollToTop />
       <div className="min-h-screen pb-24 md:pb-0 bg-[#030303]">
         {/* Subtle noise texture overlay is added in global.css */}

@@ -80,7 +80,8 @@ const Header: React.FC = () => {
       
       // If we're not on home page, navigate to home first with the hash
       if (location.pathname !== '/') {
-        window.location.href = `/#${sectionId}`;
+        // Use the react-router Link component's to prop with the basename handled automatically
+        window.location.href = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/') + '/#' + sectionId;
         return;
       }
       
