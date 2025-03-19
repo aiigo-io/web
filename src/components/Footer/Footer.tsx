@@ -6,7 +6,8 @@ import {
   Github, 
   Linkedin,
   ArrowRight,
-  MessageSquare
+  MessageSquare,
+  Phone
 } from 'lucide-react';
 import { GradientButton } from '../ui/gradient-button';
 
@@ -25,6 +26,21 @@ interface SocialIcon {
   name: string;
   url: string;
 }
+
+// Custom X icon component
+const XIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+// Custom Telegram icon component
+const TelegramIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21.5 4.5L2.5 11L10.5 13.5M21.5 4.5L16.5 21L10.5 13.5M21.5 4.5L10.5 13.5" />
+    <path d="M10.5 13.5V19L13.5 16" />
+  </svg>
+);
 
 const Footer: React.FC = () => {
   const footerLinks: FooterColumn[] = [
@@ -67,10 +83,9 @@ const Footer: React.FC = () => {
   ];
 
   const socialIcons: SocialIcon[] = [
-    { icon: <Twitter className="h-5 w-5" />, name: 'Twitter', url: '#' },
-    { icon: <MessageSquare className="h-5 w-5" />, name: 'Discord', url: '#' },
+    { icon: <XIcon className="h-5 w-5" />, name: 'X', url: '#' },
     { icon: <Github className="h-5 w-5" />, name: 'Github', url: '#' },
-    { icon: <Linkedin className="h-5 w-5" />, name: 'LinkedIn', url: '#' }
+    { icon: <TelegramIcon className="h-5 w-5" />, name: 'Telegram', url: '#' }
   ];
 
   return (
