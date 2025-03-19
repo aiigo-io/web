@@ -50,7 +50,7 @@ const Stats: React.FC = () => {
           {statsData.map((stat, index) => (
             <motion.div 
               key={index} 
-              className="p-5 md:p-6 border border-white/5 bg-white/[0.03] rounded-2xl backdrop-blur-sm flex flex-col items-center transform-3d-hover"
+              className="p-5 md:p-6 border border-white/5 bg-black/20 md:bg-white/[0.03] rounded-2xl md:backdrop-blur-sm flex flex-col items-center transform-3d-hover"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
