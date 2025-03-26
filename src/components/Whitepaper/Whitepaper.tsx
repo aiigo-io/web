@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Users, Shield, Layers, Code, Map, Download, ChevronDown, ChevronRight, PieChart } from 'lucide-react';
+import { BookOpen, Users, Shield, Layers, Code, Map, Download, ChevronDown, ChevronRight } from 'lucide-react';
 import { GradientButton } from '../ui/gradient-button';
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-
-// Register ChartJS components
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface WhitepaperSection {
   id: string;
@@ -205,98 +200,6 @@ const Whitepaper: React.FC = () => {
           
           <p className="mb-6 text-white/80">
             While AIIGo seeks to avoid extreme concentrations of resources, the network also rewards earlier members and their contributions with a relatively larger share of computing power. When networks such as AIIGo are in their early days, they tend to provide a lower utility to participants. However, as more people join the network, each participant gets more utility out of the network. In order to reward people that come to the network early, AIIGo's individual contribution rewards decrease as a function of the number of people in the network.
-          </p>
-
-          <h3 className="text-xl font-bold mb-4">AIIGo Token Distribution</h3>
-          <p className="mb-6 text-white/80">
-            The AIIGo token is the native currency of our platform, designed with a balanced distribution model to ensure sustainable growth and fair value distribution. The total token supply is distributed as follows:
-          </p>
-
-          <div className="flex flex-col md:flex-row items-center mb-8 gap-8">
-            <div className="w-full md:w-1/2 max-w-md mx-auto">
-              {/* Chart */}
-              <Doughnut 
-                data={{
-                  labels: ['Computing Power Contribution', 'Team', 'Financing', 'Community'],
-                  datasets: [{
-                    data: [40, 20, 20, 20],
-                    backgroundColor: [
-                      'rgba(101, 116, 205, 0.8)',
-                      'rgba(149, 76, 233, 0.8)',
-                      'rgba(255, 99, 132, 0.8)',
-                      'rgba(54, 162, 235, 0.8)'
-                    ],
-                    borderColor: [
-                      'rgba(101, 116, 205, 1)',
-                      'rgba(149, 76, 233, 1)',
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1,
-                  }]
-                }}
-                options={{
-                  plugins: {
-                    legend: {
-                      display: true,
-                      position: 'bottom',
-                      labels: {
-                        color: 'rgba(255, 255, 255, 0.8)',
-                        font: {
-                          size: 12
-                        }
-                      }
-                    },
-                    tooltip: {
-                      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                      bodyFont: {
-                        size: 14
-                      },
-                      titleFont: {
-                        size: 16
-                      }
-                    }
-                  },
-                  cutout: '65%'
-                }}
-              />
-            </div>
-            <div className="w-full md:w-1/2">
-              <div className="space-y-4 text-white/80">
-                <div className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-[rgba(101,116,205,0.8)] mr-3"></div>
-                  <div>
-                    <p className="font-semibold">Computing Power Contribution (40%)</p>
-                    <p className="text-sm">Rewards for users who contribute computing resources to the network</p>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-[rgba(149,76,233,0.8)] mr-3"></div>
-                  <div>
-                    <p className="font-semibold">Team (20%)</p>
-                    <p className="text-sm">Allocated to the development team for ongoing platform innovation</p>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-[rgba(255,99,132,0.8)] mr-3"></div>
-                  <div>
-                    <p className="font-semibold">Financing (20%)</p>
-                    <p className="text-sm">Reserved for platform growth, partnerships, and ecosystem expansion</p>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-[rgba(54,162,235,0.8)] mr-3"></div>
-                  <div>
-                    <p className="font-semibold">Community (20%)</p>
-                    <p className="text-sm">Allocated for community incentives, governance, and ecosystem development</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <p className="mb-6 text-white/80">
-            This balanced distribution ensures that the majority of tokens (40%) are dedicated to rewarding active network participants who contribute computing power, while providing essential allocations for development, growth, and community engagement. This model aligns incentives among all stakeholders and supports AIIGo's mission of creating a truly distributed AI computing network.
           </p>
         </div>
       )

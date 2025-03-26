@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Layers, Cpu, PieChart, Menu, X, Users, BookOpen } from 'lucide-react';
 import { cn } from "../../lib/utils";
 import { GradientButton } from '../ui/gradient-button';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [activeTab, setActiveTab] = useState('');
@@ -11,12 +11,14 @@ const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const observerRefs = useRef<IntersectionObserver[]>([]);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
-    { name: 'Features', url: '/#features', icon: Layers },
-    { name: 'Technology', url: '/#technology', icon: Cpu },
-    { name: 'Ecosystem', url: '/#tokenomics', icon: PieChart },
-    { name: 'Partners', url: '/#partners', icon: Users },
+    { name: 'Features', url: '/#features', hash: 'features', icon: Layers },
+    { name: 'Technology', url: '/#technology', hash: 'technology', icon: Cpu },
+    { name: 'Ecosystem', url: '/#tokenomics', hash: 'tokenomics', icon: PieChart },
+    { name: 'Partners', url: '/#partners', hash: 'partners', icon: Users },
+    { name: 'Whitepaper', url: '/whitepaper', icon: BookOpen }
   ];
 
   useEffect(() => {
@@ -32,29 +34,30 @@ const Header: React.FC = () => {
     observerRefs.current = [];
 
     // Only set up intersection observers if we're on the home page
-    if (location.pathname === '/') {
+    if (location.pathname === '/' || location.pathname === '') {
       // Set up intersection observers for each section
       navItems.forEach(item => {
-        const sectionId = item.url.replace('/#', '');
-        const section = document.getElementById(sectionId);
-
-        if (section) {
-          const observer = new IntersectionObserver(
-            ([entry]) => {
-              // When section is intersecting with 40% or more visibility
-              if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
-                setActiveTab(item.name);
+        if (item.hash) {
+          const section = document.getElementById(item.hash);
+  
+          if (section) {
+            const observer = new IntersectionObserver(
+              ([entry]) => {
+                // When section is intersecting with 40% or more visibility
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+                  setActiveTab(item.name);
+                }
+              },
+              {
+                root: null, // viewport
+                rootMargin: "0px",
+                threshold: [0.4, 0.8], // trigger at 40% and 80% visibility
               }
-            },
-            {
-              root: null, // viewport
-              rootMargin: "0px",
-              threshold: [0.4, 0.8], // trigger at 40% and 80% visibility
-            }
-          );
-
-          observer.observe(section);
-          observerRefs.current.push(observer);
+            );
+  
+            observer.observe(section);
+            observerRefs.current.push(observer);
+          }
         }
       });
     } else if (location.pathname === '/whitepaper') {
@@ -74,25 +77,28 @@ const Header: React.FC = () => {
     setActiveTab(item.name);
     setIsMobileMenuOpen(false);
 
-    // If it's an on-page section
-    if (item.url.startsWith('/#')) {
-      const sectionId = item.url.replace('/#', '');
-      
-      // If we're not on home page, navigate to home first with the hash
-      if (location.pathname !== '/') {
-        // Use the react-router Link component's to prop with the basename handled automatically
-        window.location.href = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/') + '/#' + sectionId;
-        return;
-      }
-      
-      // If we're already on home page, just scroll to section
-      const section = document.getElementById(sectionId);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // For sections on the home page
+    if (item.hash) {
+      // If we're not on home page, navigate to home first
+      if (location.pathname !== '/' && location.pathname !== '') {
+        navigate('/');
+        // Wait a bit for navigation to complete before trying to scroll
+        setTimeout(() => {
+          const section = document.getElementById(item.hash);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        // If we're already on home page, just scroll to section
+        const section = document.getElementById(item.hash);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     } else {
-      // Navigate to the page
-      window.location.href = item.url;
+      // Navigate to other pages (like whitepaper)
+      navigate(item.url);
     }
   };
 
@@ -119,14 +125,10 @@ const Header: React.FC = () => {
           {navItems.map((item) => {
             const isActive = activeTab === item.name;
             return (
-              <Link
+              <a
                 key={item.name}
-                to={item.url.replace('#', '')}
-                onClick={(e) => {
-                  if (item.url.includes('#')) {
-                    handleNavClick(e, item);
-                  }
-                }}
+                href={item.url}
+                onClick={(e) => handleNavClick(e, item)}
                 className={cn(
                   "relative px-5 py-2 text-sm font-medium rounded-full transition-all duration-200",
                   isActive
@@ -146,7 +148,7 @@ const Header: React.FC = () => {
                   />
                 )}
                 {item.name}
-              </Link>
+              </a>
             );
           })}
         </nav>
@@ -228,41 +230,22 @@ const Header: React.FC = () => {
                     }
                   }}
                 >
-                  {item.url.includes('#') ? (
-                    <a
-                      href={item.url}
-                      onClick={(e) => handleNavClick(e, item)}
-                      className={cn(
-                        "flex items-center py-5 text-xl font-medium transition-all duration-300 border-b border-white/10",
-                        isActive
-                          ? "text-white"
-                          : "text-white hover:text-white"
-                      )}
-                    >
-                      <Icon className="mr-3 h-6 w-6" />
-                      {item.name}
-                      {isActive && (
-                        <div className="ml-2 h-1 w-16 bg-blue-500 rounded-full"></div>
-                      )}
-                    </a>
-                  ) : (
-                    <Link
-                      to={item.url}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={cn(
-                        "flex items-center py-5 text-xl font-medium transition-all duration-300 border-b border-white/10",
-                        isActive
-                          ? "text-white"
-                          : "text-white hover:text-white"
-                      )}
-                    >
-                      <Icon className="mr-3 h-6 w-6" />
-                      {item.name}
-                      {isActive && (
-                        <div className="ml-2 h-1 w-16 bg-blue-500 rounded-full"></div>
-                      )}
-                    </Link>
-                  )}
+                  <a
+                    href={item.url}
+                    onClick={(e) => handleNavClick(e, item)}
+                    className={cn(
+                      "flex items-center py-5 text-xl font-medium transition-all duration-300 border-b border-white/10",
+                      isActive
+                        ? "text-white"
+                        : "text-white hover:text-white"
+                    )}
+                  >
+                    <Icon className="mr-3 h-6 w-6" />
+                    {item.name}
+                    {isActive && (
+                      <div className="ml-2 h-1 w-16 bg-blue-500 rounded-full"></div>
+                    )}
+                  </a>
                 </motion.div>
               );
             })}

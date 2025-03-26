@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/global.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import { HeroGeometric } from './components/ui/shape-landing-hero';
 import Stats from './components/Stats/Stats';
@@ -86,7 +86,7 @@ const WhitepaperPage: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <Router basename="/web">
+    <Router>
       <ScrollToTop />
       <div className="min-h-screen pb-24 md:pb-0 bg-[#030303]">
         {/* Subtle noise texture overlay is added in global.css */}

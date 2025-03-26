@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AIIGo - AI Computing Platform</title>
+  <script type="text/javascript">
+    // This script redirects direct route access to the index.html with a hash route
+    // Examples:
+    // /web/whitepaper -> /web/#/whitepaper
+    
+    var redirectToHome = function() {
+      // Get the current path
+      var path = window.location.pathname;
+      
+      // Keep the /web prefix but convert additional paths to hash routes
+      if (path.indexOf('/web/') === 0) {
+        // For paths like /web/whitepaper
+        var route = path.replace('/web/', '/');
+        var redirectUrl = window.location.origin + '/web/#' + route;
+        window.location.replace(redirectUrl);
+      } else {
+        // Fallback - redirect to home
+        window.location.replace(window.location.origin + '/web');
+      }
+    };
+    
+    // Execute redirect
+    redirectToHome();
+  </script>
+</head>
+<body>
+  <h2 style="text-align: center; margin-top: 50px; font-family: Arial, sans-serif;">
+    Redirecting to AIIGo Platform...
+  </h2>
+</body>
+</html> 
