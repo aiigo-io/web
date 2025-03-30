@@ -115,9 +115,16 @@ const Header: React.FC = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-rose-400"
+          className="flex items-center text-xl md:text-2xl font-bold"
         >
-          AIIGo
+          <img 
+            src={`${process.env.PUBLIC_URL}/favicon-96x96.png`}
+            alt="AIIGo Logo" 
+            className="h-8 w-8 mr-2" 
+          />
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500">
+            AIIGo
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -139,7 +146,7 @@ const Header: React.FC = () => {
                 {isActive && (
                   <motion.div
                     layoutId="navIndicator"
-                    className="absolute inset-0 bg-white/10 rounded-full -z-10"
+                    className="absolute inset-0 bg-gradient-to-r from-sky-500/10 via-blue-600/10 to-cyan-500/10 rounded-full -z-10"
                     transition={{
                       type: "spring",
                       stiffness: 300,
@@ -193,10 +200,17 @@ const Header: React.FC = () => {
           <div className="flex justify-between items-center mb-8">
             <Link
               to="/"
-              className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-rose-400"
+              className="flex items-center text-xl md:text-2xl font-bold"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              AIIGo
+              <img 
+                src={`${process.env.PUBLIC_URL}/favicon-96x96.png`}
+                alt="AIIGo Logo" 
+                className="h-8 w-8 mr-2" 
+              />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500">
+                AIIGo
+              </span>
             </Link>
             <button
               className="p-2 rounded-full bg-white/5 text-white hover:bg-white/10 transition-colors"
@@ -243,7 +257,7 @@ const Header: React.FC = () => {
                     <Icon className="mr-3 h-6 w-6" />
                     {item.name}
                     {isActive && (
-                      <div className="ml-2 h-1 w-16 bg-blue-500 rounded-full"></div>
+                      <div className="ml-2 h-1 w-16 bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 rounded-full"></div>
                     )}
                   </a>
                 </motion.div>

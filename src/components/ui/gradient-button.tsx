@@ -26,7 +26,7 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
   };
   
   const variantClasses = {
-    default: "text-white before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-indigo-500 before:via-purple-500 before:to-pink-500 before:rounded-full before:-z-10 before:transition-colors hover:before:from-indigo-600 hover:before:via-purple-600 hover:before:to-pink-600",
+    default: "text-white before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-sky-500 before:via-blue-600 before:to-cyan-500 before:rounded-full before:-z-10 before:transition-colors hover:before:from-sky-600 hover:before:via-blue-700 hover:before:to-cyan-600",
     outline: "text-white border border-white/20 bg-white/5 backdrop-blur-sm hover:border-white/30 hover:bg-white/10",
   };
   

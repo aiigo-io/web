@@ -21,10 +21,10 @@ const Home: React.FC = () => {
       <main>
         {/* Hero section with 3D globe */}
         <HeroGeometric
-          badge="AIIGo Platform"
+          badge="AIIGo Fusion Platform"
           title1="The Next Generation"
-          title2="of AI Computing"
-          description="AIIGo is a breakthrough AI computing platform that combines powerful processing, scalability, and ease of use, allowing anyone to participate in the future of artificial intelligence."
+          title2="of AI Computing Fusion"
+          description="AIIGo is a breakthrough AI computing fusion platform that integrates diverse computational resources, combining powerful processing, scalability, and ease of use. Our fusion technology enables seamless integration of various AI systems, allowing anyone to participate in the collaborative future of artificial intelligence."
         />
 
         {/* Stats section with animated counters */}
