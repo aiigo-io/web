@@ -13,23 +13,6 @@
   <meta name="description" content="AIIGo - The Next Generation of AI Computing" />
   <title>AIIGo - AI Computing Platform</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- GitHub Pages SPA redirect script -->
-  <script type="text/javascript">
-    (function() {
-      // Handles direct navigation to routes like /web/whitepaper
-      const path = window.location.pathname;
-      if (path.indexOf('/web/') === 0 && path !== '/web/' && path !== '/web') {
-        // Routes like /web/whitepaper should be handled by the React Router
-        const route = path.replace('/web/', '/');
-        const base = window.location.origin + '/web';
-        if (history && history.replaceState) {
-          history.replaceState(null, null, base + '/#' + route);
-          window.location.reload();
-        }
-      }
-    })();
-  </script>
 </head>
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -7,7 +7,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:cloudflare": "PUBLIC_URL=/ react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -21,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/computing-io/web/issues"
   },
-  "homepage": "/web",
+  "homepage": "/",
   "dependencies": {
     "@agentdeskai/browser-tools-mcp": "^1.2.1",
     "@radix-ui/react-slot": "^1.1.2",

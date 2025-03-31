@@ -74,7 +74,7 @@ ISC
 
 ## Live Demo
 
-Visit the live application at [https://aiigo-io.github.io/web/](https://aiigo-io.github.io/web/)
+Visit the live application at [https://aiigo-io.github.io/](https://aiigo-io.github.io/)
 
 ## Deployment
 
@@ -83,7 +83,7 @@ This project is configured to deploy automatically to GitHub Pages using GitHub 
 The workflow will:
 1. Run on all pushes to the `main` branch
 2. Build the React application
-3. Deploy to GitHub Pages at [https://aiigo-io.github.io/web/](https://aiigo-io.github.io/web/)
+3. Deploy to GitHub Pages at [https://aiigo-io.github.io/](https://aiigo-io.github.io/)
 
 ### Manual Deployment
 
@@ -91,7 +91,7 @@ You can also manually trigger a deployment from the GitHub Actions tab in the re
 
 ## Project Configuration
 
-- The application is configured with `"homepage": "/web"` in package.json to ensure correct asset paths when hosted at `https://computing-io.github.io/web/`
+- The application is configured with `"homepage": "/"` in package.json to ensure correct asset paths
 - The GitHub Actions workflow is defined in `.github/workflows/deploy.yml`
 
 ## Contributing
