@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/global.css';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { config } from './config';
 import Header from './components/Header/Header';
 import { HeroGeometric } from './components/ui/shape-landing-hero';
 import Stats from './components/Stats/Stats';
@@ -21,7 +22,7 @@ const Home: React.FC = () => {
       <main>
         {/* Hero section with 3D globe */}
         <HeroGeometric
-          badge="AIIGo Fusion Platform"
+          badge="AIIGo Computing Fusion Platform"
           title1="The Next Generation"
           title2="of AI Computing Fusion"
           description="AIIGo is a breakthrough AI computing fusion platform that integrates diverse computational resources, combining powerful processing, scalability, and ease of use. Our fusion technology enables seamless integration of various AI systems, allowing anyone to participate in the collaborative future of artificial intelligence."
@@ -86,7 +87,7 @@ const WhitepaperPage: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <Router basename={config.basePath}>
       <ScrollToTop />
       <div className="min-h-screen pb-24 md:pb-0 bg-[#030303]">
         {/* Subtle noise texture overlay is added in global.css */}
