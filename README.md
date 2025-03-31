@@ -74,7 +74,7 @@ ISC
 
 ## Live Demo
 
-Visit the live application at [https://computing-io.github.io/web/](https://computing-io.github.io/web/)
+Visit the live application at [https://aiigo-io.github.io/web/](https://aiigo-io.github.io/web/)
 
 ## Deployment
 
@@ -83,7 +83,7 @@ This project is configured to deploy automatically to GitHub Pages using GitHub 
 The workflow will:
 1. Run on all pushes to the `main` branch
 2. Build the React application
-3. Deploy to GitHub Pages at [https://computing-io.github.io/web/](https://computing-io.github.io/web/)
+3. Deploy to GitHub Pages at [https://aiigo-io.github.io/web/](https://aiigo-io.github.io/web/)
 
 ### Manual Deployment
 
