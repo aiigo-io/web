@@ -313,7 +313,7 @@ function HeroGeometric({
                             variants={fadeUpVariants}
                             initial="hidden"
                             animate="visible"
-                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] mb-6 md:mb-8"
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] mt-8 md:mt-12 mb-6 md:mb-8"
                         >
                             <Circle className="h-2 w-2 fill-rose-500/80" />
                             <span className="text-sm text-white/60 tracking-wide">
