@@ -162,7 +162,9 @@ const Header: React.FC = () => {
 
         {/* Connect Button */}
         <div className="hidden lg:block">
-          <GradientButton>Connect</GradientButton>
+          <GradientButton onClick={() => {
+            window.location.href = 'https://dex.aiigo.org';
+          }}>Connect</GradientButton>
         </div>
 
         {/* Mobile Menu Button */}
@@ -280,7 +282,9 @@ const Header: React.FC = () => {
               }
             }}
           >
-            <GradientButton className="w-full">Connect</GradientButton>
+            <GradientButton className="w-full" onClick={() => {
+              window.location.href = 'https://dex.aiigo.org';
+            }}>Connect</GradientButton>
           </motion.div>
         </motion.div>
       </motion.div>
