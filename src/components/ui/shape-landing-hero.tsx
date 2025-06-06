@@ -360,7 +360,7 @@ function HeroGeometric({
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.6 }}
                         >
-                            <GradientButton className="w-full sm:w-auto text-base py-3">Get Started</GradientButton>
+                            <GradientButton className="w-full sm:w-auto text-base py-3" onClick={() => window.location.href = 'https://dex.aiigo.org'}>Get Started</GradientButton>
                             <GradientButton variant="outline" className="w-full sm:w-auto text-base py-3">Learn More</GradientButton>
                         </motion.div>
                         
