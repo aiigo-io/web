@@ -39,7 +39,7 @@ const Header: React.FC = () => {
       navItems.forEach(item => {
         if (item.hash) {
           const section = document.getElementById(item.hash);
-  
+
           if (section) {
             const observer = new IntersectionObserver(
               ([entry]) => {
@@ -54,7 +54,7 @@ const Header: React.FC = () => {
                 threshold: [0.4, 0.8], // trigger at 40% and 80% visibility
               }
             );
-  
+
             observer.observe(section);
             observerRefs.current.push(observer);
           }
@@ -117,12 +117,15 @@ const Header: React.FC = () => {
           to="/"
           className="flex items-center text-xl md:text-2xl font-bold"
         >
-          <img 
+          <img
             src={`${process.env.PUBLIC_URL}/favicon-96x96.png`}
-            alt="AIIGo Logo" 
-            className="h-8 w-8 mr-2" 
+            alt="AIIGo Logo"
+            className="h-8 w-8 mr-2"
           />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500">
+          <span
+            className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 font-bold"
+            style={{ WebkitBackgroundClip: 'text' }}
+          >
             AIIGo
           </span>
         </Link>
@@ -205,12 +208,15 @@ const Header: React.FC = () => {
               className="flex items-center text-xl md:text-2xl font-bold"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <img 
+              <img
                 src={`${process.env.PUBLIC_URL}/favicon-96x96.png`}
-                alt="AIIGo Logo" 
-                className="h-8 w-8 mr-2" 
+                alt="AIIGo Logo"
+                className="h-8 w-8 mr-2"
               />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500">
+              <span
+                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 font-bold"
+                style={{ WebkitBackgroundClip: 'text' }}
+              >
                 AIIGo
               </span>
             </Link>

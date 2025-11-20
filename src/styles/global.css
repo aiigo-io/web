@@ -87,17 +87,18 @@
 
 /* Base Styles */
 :root {
-    --primary-color: #5468ff;
-    --secondary-color: #6c63ff;
+    --primary-color: #00f3ff;
+    --secondary-color: #bd00ff;
+    --accent-color: #7000ff;
     --dark-color: #030303;
     --darker-color: #020202;
     --light-color: #f7f7f9;
-    --gradient: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    --gradient-subtle: linear-gradient(45deg, rgba(84, 104, 255, 0.1), rgba(108, 99, 255, 0.1));
-    --gradient-glow: linear-gradient(45deg, rgba(84, 104, 255, 0.5), rgba(108, 99, 255, 0.5));
+    --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-subtle: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(189, 0, 255, 0.1));
+    --gradient-glow: linear-gradient(135deg, rgba(0, 243, 255, 0.3), rgba(189, 0, 255, 0.3));
     --surface-color: rgba(255, 255, 255, 0.03);
     --border-color: rgba(255, 255, 255, 0.08);
-    --text-gradient: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+    --text-gradient: linear-gradient(to right, #ffffff, #a5a5a5);
 }
 
 * {

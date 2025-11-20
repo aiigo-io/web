@@ -7,32 +7,32 @@ import React, { useEffect, useRef } from "react";
 // Create a 3D globe effect component inspired by weroam.xyz
 function Globe3D() {
     const globeRef = useRef<HTMLDivElement>(null);
-    
+
     useEffect(() => {
         if (!globeRef.current) return;
-        
+
         const handleMouseMove = (e: MouseEvent) => {
             if (!globeRef.current) return;
             const { left, top, width, height } = globeRef.current.getBoundingClientRect();
             const centerX = left + width / 2;
             const centerY = top + height / 2;
-            
+
             const moveX = (e.clientX - centerX) / 25;
             const moveY = (e.clientY - centerY) / 25;
-            
+
             globeRef.current.style.transform = `rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
         };
-        
+
         document.addEventListener('mousemove', handleMouseMove);
-        
+
         return () => {
             document.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
-    
+
     return (
         <div className="relative w-full h-full flex items-center justify-center pointer-events-none mt-12 md:mt-0">
-            <div 
+            <div
                 ref={globeRef}
                 className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full transform-style-3d transition-transform duration-200 ease-out"
                 style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
@@ -40,45 +40,45 @@ function Globe3D() {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/20 to-rose-500/20 opacity-80 blur-xl"></div>
                 <div className="absolute inset-0 rounded-full border border-white/10 overflow-hidden">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0)_60%)]"></div>
-                    
+
                     {/* Grid lines similar to a globe */}
                     <div className="absolute inset-0">
                         {Array.from({ length: 12 }).map((_, i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className="absolute inset-0 border border-white/5 rounded-full"
-                                style={{ 
-                                    transform: `rotateX(${i * 15}deg)`, 
+                                style={{
+                                    transform: `rotateX(${i * 15}deg)`,
                                     transformStyle: "preserve-3d"
                                 }}
                             ></div>
                         ))}
-                        
+
                         {Array.from({ length: 12 }).map((_, i) => (
-                            <div 
-                                key={i} 
+                            <div
+                                key={i}
                                 className="absolute inset-0 border border-white/5 rounded-full"
-                                style={{ 
-                                    transform: `rotateY(${i * 15}deg)`, 
+                                style={{
+                                    transform: `rotateY(${i * 15}deg)`,
                                     transformStyle: "preserve-3d"
                                 }}
                             ></div>
                         ))}
                     </div>
-                    
+
                     {/* Animated dots resembling network nodes */}
                     {Array.from({ length: 25 }).map((_, i) => {
                         const size = Math.random() * 4 + 2;
                         const x = Math.random() * 100;
                         const y = Math.random() * 100;
                         const delay = Math.random() * 5;
-                        
+
                         return (
-                            <motion.div 
+                            <motion.div
                                 key={i}
                                 className="absolute rounded-full bg-white/80"
-                                style={{ 
-                                    width: size, 
+                                style={{
+                                    width: size,
                                     height: size,
                                     left: `${x}%`,
                                     top: `${y}%`,
@@ -97,7 +97,7 @@ function Globe3D() {
                     })}
                 </div>
             </div>
-            
+
             {/* Animated connection lines */}
             <div className="absolute inset-0 opacity-30">
                 {Array.from({ length: 5 }).map((_, i) => {
@@ -105,7 +105,7 @@ function Globe3D() {
                     const startY = Math.random() * 100;
                     const endX = Math.random() * 100;
                     const endY = Math.random() * 100;
-                    
+
                     return (
                         <motion.div
                             key={i}
@@ -205,16 +205,16 @@ function StatCounter({ value, label }: { value: number; label: string }) {
     const count = useMotionValue(0);
     const rounded = useTransform(count, Math.round);
     const displayValue = useTransform(rounded, val => val.toLocaleString());
-    
+
     useEffect(() => {
         const animation = animate(count, value, { duration: 2.5, ease: "easeOut" });
         return animation.stop;
     }, [count, value]);
-    
+
     return (
         <div className="flex flex-col items-center">
-            <motion.div 
-                className="text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80"
+            <motion.div
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-white"
             >
                 {displayValue}
             </motion.div>
@@ -250,10 +250,21 @@ function HeroGeometric({
     };
 
     return (
-        <div className="relative min-h-[90vh] sm:min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303] pt-16 sm:pt-0">
-            {/* Dynamic animated background */}
-            <div className="absolute inset-0 animated-gradient opacity-80" />
-            
+        <div className="relative min-h-[90vh] sm:min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303] pt-32 md:pt-40">
+            {/* Background Image with Overlay */}
+            <div className="absolute inset-0 z-0">
+                <img
+                    src="/assets/web3-hero.png"
+                    alt="Web3 Background"
+                    className="w-full h-full object-cover opacity-50"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#030303] via-[#030303]/60 to-[#030303]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#030303_100%)] opacity-70" />
+            </div>
+
+            {/* Dynamic animated background overlay */}
+            <div className="absolute inset-0 animated-gradient opacity-30 mix-blend-overlay" />
+
             {/* Radial gradient for depth */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#030303_80%)]" />
 
@@ -363,7 +374,7 @@ function HeroGeometric({
                             <GradientButton className="w-full sm:w-auto text-base py-3" onClick={() => window.location.href = 'https://dex.aiigo.org'}>Get Started</GradientButton>
                             <GradientButton variant="outline" className="w-full sm:w-auto text-base py-3">Learn More</GradientButton>
                         </motion.div>
-                        
+
                         {/* Stats section similar to weroam */}
                         <motion.div
                             custom={4}
@@ -378,9 +389,9 @@ function HeroGeometric({
                             </div>
                         </motion.div>
                     </div>
-                    
+
                     {/* Right column with 3D globe */}
-                    <motion.div 
+                    <motion.div
                         variants={fadeUpVariants}
                         custom={2}
                         initial="hidden"

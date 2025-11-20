@@ -15,14 +15,14 @@ const AnimatedCounter = ({ value, prefix = '', suffix = '' }: { value: number; p
   const formatted = useTransform(rounded, (val) => {
     return prefix + val.toLocaleString() + suffix;
   });
-  
+
   useEffect(() => {
     const animation = animate(count, value, { duration: 2.5, ease: "easeOut" });
     return animation.stop;
   }, [count, value]);
-  
+
   return (
-    <motion.span className="text-2xl md:text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
+    <motion.span className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
       {formatted}
     </motion.span>
   );
@@ -45,11 +45,11 @@ const Stats: React.FC = () => {
             Explore the global reach of our network and user engagement across the platform.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 stats-container">
           {statsData.map((stat, index) => (
-            <motion.div 
-              key={index} 
+            <motion.div
+              key={index}
               className="p-5 md:p-6 border border-white/5 bg-black/20 md:bg-white/[0.03] rounded-2xl md:backdrop-blur-sm flex flex-col items-center transform-3d-hover"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
