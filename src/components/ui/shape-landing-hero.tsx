@@ -1,135 +1,147 @@
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate, useAnimationFrame } from "framer-motion";
 import { Circle } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { GradientButton } from './gradient-button';
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Create a 3D globe effect component inspired by weroam.xyz
 function Globe3D() {
-    const globeRef = useRef<HTMLDivElement>(null);
+    // Generate random points on a sphere with dispersed arrangement
+    const points = Array.from({ length: 50 }).map((_, i) => {
+        // Random spherical coordinates for dispersed distribution
+        const phi = Math.acos(Math.random() * 2 - 1); // Uniform distribution on sphere surface
+        const theta = Math.random() * 2 * Math.PI;
 
-    useEffect(() => {
-        if (!globeRef.current) return;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            if (!globeRef.current) return;
-            const { left, top, width, height } = globeRef.current.getBoundingClientRect();
-            const centerX = left + width / 2;
-            const centerY = top + height / 2;
-
-            const moveX = (e.clientX - centerX) / 25;
-            const moveY = (e.clientY - centerY) / 25;
-
-            globeRef.current.style.transform = `rotateY(${moveX}deg) rotateX(${-moveY}deg)`;
+        return {
+            phi: (phi * 180) / Math.PI,
+            theta: (theta * 180) / Math.PI,
+            size: Math.random() * 4 + 2,
+            delay: Math.random() * 5,
+            opacity: Math.random() * 0.5 + 0.5
         };
+    });
 
-        document.addEventListener('mousemove', handleMouseMove);
+    const [hovered, setHovered] = useState(false);
+    const rotateY = useMotionValue(0);
 
-        return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, []);
+    useAnimationFrame((t, delta) => {
+        const current = rotateY.get();
+        // Normal speed: 0.02 deg/ms (approx 20s per rotation)
+        // Hover speed: 0.1 deg/ms (approx 4s per rotation)
+        const speed = hovered ? 0.1 : 0.02;
+        rotateY.set(current + speed * delta);
+    });
 
     return (
-        <div className="relative w-full h-full flex items-center justify-center pointer-events-none mt-12 md:mt-0">
-            <div
-                ref={globeRef}
-                className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full transform-style-3d transition-transform duration-200 ease-out"
-                style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
+        <div
+            className="relative w-full h-full flex items-center justify-center mt-12 md:mt-0 cursor-pointer"
+            style={{ perspective: "1000px" }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
+            <motion.div
+                className="relative w-[300px] h-[300px] transform-style-3d md:scale-125"
+                style={{
+                    transformStyle: "preserve-3d",
+                    rotateY: rotateY,
+                    rotateZ: 10
+                }}
             >
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/20 to-rose-500/20 opacity-80 blur-xl"></div>
-                <div className="absolute inset-0 rounded-full border border-white/10 overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0)_60%)]"></div>
+                {/* Core glow */}
+                <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl"></div>
+                <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 45deg)" }}></div>
+                <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 135deg)" }}></div>
+                <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 225deg)" }}></div>
+                <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 315deg)" }}></div>
 
-                    {/* Grid lines similar to a globe */}
-                    <div className="absolute inset-0">
-                        {Array.from({ length: 12 }).map((_, i) => (
-                            <div
-                                key={i}
-                                className="absolute inset-0 border border-white/5 rounded-full"
-                                style={{
-                                    transform: `rotateX(${i * 15}deg)`,
-                                    transformStyle: "preserve-3d"
-                                }}
-                            ></div>
-                        ))}
+                {/* Inner sphere gradient */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/10 to-rose-500/10 opacity-50"></div>
 
-                        {Array.from({ length: 12 }).map((_, i) => (
-                            <div
-                                key={i}
-                                className="absolute inset-0 border border-white/5 rounded-full"
-                                style={{
-                                    transform: `rotateY(${i * 15}deg)`,
-                                    transformStyle: "preserve-3d"
-                                }}
-                            ></div>
-                        ))}
-                    </div>
+                {/* Meridians (Vertical lines) */}
+                {Array.from({ length: 8 }).map((_, i) => (
+                    <div
+                        key={`meridian-${i}`}
+                        className="absolute inset-0 rounded-full border border-indigo-500/20"
+                        style={{
+                            transform: `rotateY(${i * 22.5}deg)`,
+                            transformStyle: "preserve-3d"
+                        }}
+                    ></div>
+                ))}
 
-                    {/* Animated dots resembling network nodes */}
-                    {Array.from({ length: 25 }).map((_, i) => {
-                        const size = Math.random() * 4 + 2;
-                        const x = Math.random() * 100;
-                        const y = Math.random() * 100;
-                        const delay = Math.random() * 5;
-
-                        return (
-                            <motion.div
-                                key={i}
-                                className="absolute rounded-full bg-white/80"
-                                style={{
-                                    width: size,
-                                    height: size,
-                                    left: `${x}%`,
-                                    top: `${y}%`,
-                                }}
-                                animate={{
-                                    opacity: [0.2, 1, 0.2],
-                                    scale: [1, 1.5, 1]
-                                }}
-                                transition={{
-                                    duration: 3 + Math.random() * 2,
-                                    repeat: Infinity,
-                                    delay: delay
-                                }}
-                            ></motion.div>
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* Animated connection lines */}
-            <div className="absolute inset-0 opacity-30">
-                {Array.from({ length: 5 }).map((_, i) => {
-                    const startX = Math.random() * 100;
-                    const startY = Math.random() * 100;
-                    const endX = Math.random() * 100;
-                    const endY = Math.random() * 100;
+                {/* Parallels (Horizontal lines) - Proper latitude rings */}
+                {Array.from({ length: 9 }).map((_, i) => {
+                    // Calculate latitude rings
+                    // i goes from 0 to 8. Center is 4.
+                    // Angle from -80 to +80 degrees approx
+                    const angle = -80 + (i * 20);
+                    const rad = (angle * Math.PI) / 180;
+                    const radius = 150 * Math.cos(rad); // 150 is half of 300px width
+                    const y = 150 * Math.sin(rad);
 
                     return (
-                        <motion.div
-                            key={i}
-                            className="absolute bg-gradient-to-r from-indigo-500/50 to-transparent h-[1px]"
+                        <div
+                            key={`parallel-${i}`}
+                            className="absolute rounded-full border border-indigo-500/20"
                             style={{
-                                left: `${startX}%`,
-                                top: `${startY}%`,
-                                width: '0%',
-                                transform: `rotate(${Math.random() * 360}deg)`,
-                                transformOrigin: 'left center',
+                                width: radius * 2,
+                                height: radius * 2,
+                                left: "50%",
+                                top: "50%",
+                                marginLeft: -radius,
+                                marginTop: -radius,
+                                transform: `translateY(${y}px) rotateX(90deg)`,
+                                transformStyle: "preserve-3d"
                             }}
-                            animate={{
-                                width: ['0%', '30%', '0%'],
-                                opacity: [0, 0.8, 0]
-                            }}
-                            transition={{
-                                duration: 3 + Math.random() * 2,
-                                repeat: Infinity,
-                                delay: Math.random() * 5
-                            }}
-                        ></motion.div>
+                        ></div>
                     );
                 })}
-            </div>
+
+                {/* Dots (Compute Clusters) */}
+                {points.map((point, i) => (
+                    <motion.div
+                        key={i}
+                        className="absolute rounded-full"
+                        style={{
+                            width: point.size,
+                            height: point.size,
+                            left: "50%",
+                            top: "50%",
+                            marginLeft: -point.size / 2,
+                            marginTop: -point.size / 2,
+                            transform: `rotateY(${point.theta}deg) rotateX(${point.phi}deg) translateZ(150px)`,
+                            transformStyle: "preserve-3d", // Enable 3D for children
+                        }}
+                        animate={{
+                            opacity: [0.4, 1, 0.4],
+                            scale: [1, 1.5, 1],
+                        }}
+                        transition={{
+                            duration: 2 + Math.random() * 2,
+                            repeat: Infinity,
+                            delay: point.delay
+                        }}
+                    >
+                        {/* Plane 1 (XY) */}
+                        <div
+                            className="absolute inset-0 rounded-full"
+                            style={{
+                                backgroundColor: i % 3 === 0 ? "#6366f1" : i % 3 === 1 ? "#ec4899" : "#ffffff",
+                                boxShadow: `0 0 ${point.size * 2}px ${i % 3 === 0 ? "#6366f1" : i % 3 === 1 ? "#ec4899" : "#ffffff"}`,
+                            }}
+                        />
+                        {/* Plane 2 (YZ) - Rotated 90deg Y */}
+                        <div
+                            className="absolute inset-0 rounded-full"
+                            style={{
+                                transform: "rotateY(90deg)",
+                                backgroundColor: i % 3 === 0 ? "#6366f1" : i % 3 === 1 ? "#ec4899" : "#ffffff",
+                                boxShadow: `0 0 ${point.size * 2}px ${i % 3 === 0 ? "#6366f1" : i % 3 === 1 ? "#ec4899" : "#ffffff"}`,
+                            }}
+                        />
+                    </motion.div>
+                ))}
+            </motion.div>
         </div>
     );
 }
