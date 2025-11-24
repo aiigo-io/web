@@ -40,7 +40,7 @@ function Globe3D() {
             onMouseLeave={() => setHovered(false)}
         >
             <motion.div
-                className="relative w-[300px] h-[300px] transform-style-3d md:scale-125"
+                className="relative w-[450px] h-[450px] transform-style-3d md:scale-140"
                 style={{
                     transformStyle: "preserve-3d",
                     rotateY: rotateY,
@@ -49,10 +49,12 @@ function Globe3D() {
             >
                 {/* Core glow */}
                 <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl"></div>
+                <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 30deg)" }}></div>
                 <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 45deg)" }}></div>
                 <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 135deg)" }}></div>
                 <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 225deg)" }}></div>
                 <div className="absolute inset-0 rounded-full bg-indigo-500/10 blur-3xl" style={{ transform: "rotate3d(1, 1, 1, 315deg)" }}></div>
+
 
                 {/* Inner sphere gradient */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500/10 to-rose-500/10 opacity-50"></div>
@@ -76,8 +78,8 @@ function Globe3D() {
                     // Angle from -80 to +80 degrees approx
                     const angle = -80 + (i * 20);
                     const rad = (angle * Math.PI) / 180;
-                    const radius = 150 * Math.cos(rad); // 150 is half of 300px width
-                    const y = 150 * Math.sin(rad);
+                    const radius = 225 * Math.cos(rad); // 225 is half of 450px width
+                    const y = 225 * Math.sin(rad);
 
                     return (
                         <div
@@ -109,7 +111,7 @@ function Globe3D() {
                             top: "50%",
                             marginLeft: -point.size / 2,
                             marginTop: -point.size / 2,
-                            transform: `rotateY(${point.theta}deg) rotateX(${point.phi}deg) translateZ(150px)`,
+                            transform: `rotateY(${point.theta}deg) rotateX(${point.phi}deg) translateZ(225px)`,
                             transformStyle: "preserve-3d", // Enable 3D for children
                         }}
                         animate={{
