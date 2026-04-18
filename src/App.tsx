@@ -251,6 +251,8 @@ function TickerTape() {
 function Nav() {
 
   const [scrolled, setScrolled] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll);
@@ -260,9 +262,9 @@ function Nav() {
   return (
     <div className="sticky top-0 z-40">
       <TickerTape />
-      <header className={`border-b hair-b transition-colors ${scrolled ? 'bg-ink-950/90 backdrop-blur' : 'bg-ink-950'}`}>
-        <div className="max-w-[1400px] mx-auto px-6 flex items-center h-14">
-          <a href="#" className="flex items-center gap-2 group">
+      <header className={`border-b hair-b transition-colors ${scrolled || menuOpen ? 'bg-ink-950/95 backdrop-blur-md' : 'bg-ink-950'}`}>
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 flex items-center h-14">
+          <a href="#" className="flex items-center gap-2 group relative z-50">
             <img src={`${process.env.PUBLIC_URL || ''}/web-app-manifest-192x192.png`} width="22" height="22" alt="aiigo logo" className="rounded-sm" />
             <span className="font-mono font-semibold tracking-tight text-ink-100 text-[15px]">AIIGO</span>
           </a>
@@ -276,16 +278,43 @@ function Nav() {
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex items-center gap-2 relative z-50">
             <div className="hidden lg:flex items-center gap-2 px-3 h-8 border hair rounded-sm text-[12px] text-ink-400 font-mono bg-ink-900/60">
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor"><circle cx="6" cy="6" r="4.5" strokeWidth="1.3" /><path d="M9.5 9.5 L12.5 12.5" strokeWidth="1.3" /></svg>
               <span>Search SKU, region…</span>
               <span className="ml-6 flex gap-1"><Kbd>⌘</Kbd><Kbd>K</Kbd></span>
             </div>
-            <Btn variant="ghost" size="sm" as="a" href="#sell">Start earning</Btn>
-            <Btn variant="primary" size="sm" as="a" href="#buy">Rent compute <Arrow size={12} /></Btn>
+            <Btn variant="ghost" size="sm" as="a" href="#sell" className="hidden sm:inline-flex">Start earning</Btn>
+            <Btn variant="primary" size="sm" as="a" href="#buy" className="hidden min-[360px]:inline-flex">Rent compute <Arrow size={12} /></Btn>
+
+            {/* Hamburger Button */}
+            <button
+              className="md:hidden p-2 -mr-2 text-ink-200"
+              onClick={() => setMenuOpen(!menuOpen)}>
+              {menuOpen ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" /></svg>
+              ) : (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" /></svg>
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Sidebar/Menu */}
+        {menuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-ink-950/95 backdrop-blur-xl border-b hair-b flex flex-col px-4 pt-4 pb-8 space-y-4 shadow-2xl z-40">
+            {NAV_ITEMS.map(i => (
+              <a key={i.label} href={i.href} onClick={() => setMenuOpen(false)}
+                className="block px-3 py-3 text-lg font-medium text-ink-200 hover:text-ink-50 hover:bg-white/5 rounded-md transition border-b border-white/5">
+                {i.label}
+              </a>
+            ))}
+            <div className="pt-4 flex flex-col gap-3">
+              <Btn variant="ghost" size="md" as="a" href="#sell" className="w-full justify-center">Start earning</Btn>
+              <Btn variant="primary" size="md" as="a" href="#buy" className="w-full justify-center">Rent compute <Arrow size={14} /></Btn>
+            </div>
+          </div>
+        )}
       </header>
     </div>
   );
@@ -306,49 +335,51 @@ function Hero() {
       <div className="max-w-[1400px] mx-auto px-6 relative">
         <div className="grid grid-cols-12 gap-0">
           {/* Left: headline */}
-          <div className="col-span-12 lg:col-span-7 py-20 lg:py-28 lg:pr-16 lg:border-r hair">
-            <div className="flex items-center gap-3 mb-10">
+          <div className="col-span-12 lg:col-span-7 py-12 md:py-20 lg:py-28 lg:pr-16 lg:border-r hair">
+            <div className="flex items-center gap-3 mb-8 md:mb-10">
               <LiveDot />
-              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-300">
-                Live market · 8,412 nodes online
+              <span className="font-mono text-[9px] md:text-[11px] uppercase tracking-[0.18em] text-ink-300 break-words">
+                Live market <span className="hidden sm:inline">· 8,412 nodes online</span>
               </span>
               <span className="hidden md:inline font-mono text-[11px] text-ink-500">
                 updated {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}
               </span>
             </div>
 
-            <h1 className="font-sans font-light text-[52px] md:text-[76px] lg:text-[88px] leading-[0.95] tracking-[-0.035em] text-ink-50">
-              The world's idle<br />
-              silicon, <span className="font-serif text-accent">priced by</span><br />
+            <h1 className="font-sans font-light text-5xl sm:text-6xl md:text-[76px] lg:text-[88px] leading-[1.0] md:leading-[0.95] tracking-[-0.035em] text-ink-50">
+              The world's idle{' '}<br className="hidden sm:block" />
+              silicon, <span className="font-serif text-accent">priced by</span>{' '}<br className="hidden sm:block" />
               the <span className="font-serif">second.</span>
             </h1>
 
-            <p className="max-w-xl mt-10 text-[17px] leading-[1.55] text-ink-300">
+            <p className="max-w-xl mt-6 md:mt-10 text-[15px] md:text-[17px] leading-[1.6] md:leading-[1.55] text-ink-300">
               Aiigo is a decentralized compute exchange. Hardware owners list their spare
               GPU and CPU cycles. Builders of AI and simulation workloads buy them — live,
               by the second, at 60–80% below hyperscaler rates.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Btn variant="primary" size="lg" as="a" href="#buy">
+            <div className="mt-8 md:mt-10 flex flex-wrap items-center gap-3">
+              <Btn variant="primary" size="lg" as="a" href="#buy" className="w-full sm:w-auto justify-center">
                 Rent compute <Arrow size={14} />
               </Btn>
-              <Btn variant="outline" size="lg" as="a" href="#sell">
+              <Btn variant="outline" size="lg" as="a" href="#sell" className="w-full sm:w-auto justify-center">
                 Start earning →
               </Btn>
-              <span className="font-mono text-[11px] text-ink-500 ml-2">No signup · pay-as-you-go · USDC or card</span>
+              <span className="w-full sm:w-auto font-mono text-[10px] md:text-[11px] text-ink-500 sm:ml-2 text-center sm:text-left mt-2 sm:mt-0">
+                No signup · pay-as-you-go · USDC or card
+              </span>
             </div>
 
-            {/* Mini metrics row */}
-            <div className="mt-16 grid grid-cols-3 gap-0 border-t hair pt-6">
+            {/* Mini metrics row (staggered for mobile) */}
+            <div className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-0 border-t hair pt-6">
               {[
                 { k: 'Active nodes', v: '8,412', hint: '+214 today' },
                 { k: 'Filled jobs (24h)', v: '71.4k', hint: '98.7% SLA' },
                 { k: 'Avg savings', v: '73%', hint: 'vs AWS p5' },
               ].map((m, i) => (
-                <div key={i} className={`px-4 ${i > 0 ? 'border-l hair' : ''}`}>
+                <div key={i} className={`sm:px-4 ${i > 0 ? 'sm:border-l sm:border-white/10' : ''} pb-4 sm:pb-0 border-b border-white/5 sm:border-b-0 last:border-b-0`}>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-ink-400 mb-2">{m.k}</div>
-                  <div className="font-light text-3xl text-ink-50 tnum tracking-tight">{m.v}</div>
+                  <div className="font-light text-3xl md:text-3xl text-ink-50 tnum tracking-tight">{m.v}</div>
                   <div className="font-mono text-[11px] text-ink-500 mt-1">{m.hint}</div>
                 </div>
               ))}
@@ -473,7 +504,7 @@ function MarketTable() {
 
   return (
     <section id="market" className="relative border-b hair-b bg-ink-950">
-      <div className="max-w-[1400px] mx-auto px-6 py-24">
+      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24">
         <div className="flex items-end justify-between flex-wrap gap-6 mb-10">
           <div>
             <Eyebrow className="mb-4">§01 · Live market</Eyebrow>
@@ -516,8 +547,8 @@ function MarketTable() {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-[13px]">
+        <div className="overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0">
+          <table className="w-full text-[13px] min-w-[760px]">
             <thead>
               <tr className="font-mono text-[10px] uppercase tracking-wider text-ink-400 border-b hair">
                 {['#', 'SKU', 'Region', 'Spot /hr', '24h', 'Available', 'Depth', 'Action'].map((h, i) => (
@@ -580,7 +611,7 @@ function HowItWorks() {
   return (
     <section id="sell" className="relative bg-paper text-ink-950 border-b hair-b">
       <div className="absolute inset-0 grid-bg-paper opacity-60 pointer-events-none"></div>
-      <div className="max-w-[1400px] mx-auto px-6 py-28 relative">
+      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-28 relative">
         <div className="grid grid-cols-12 gap-10 mb-14">
           <div className="col-span-12 md:col-span-5">
             <div className="font-mono text-[10px] tracking-[0.18em] uppercase text-ink-500 mb-4">§02 · How it works</div>
@@ -637,7 +668,7 @@ function HowItWorks() {
                 <span className="text-ink-400">~ $ install aiigo</span>
                 <span className="text-ink-500 text-[10px]">bash · macOS / linux</span>
               </div>
-              <pre className="px-4 py-4 text-paper/90"><span className="text-ink-500"># one-liner</span>{"\n"}
+              <pre className="px-4 py-4 text-paper/90 overflow-x-auto"><span className="text-ink-500"># one-liner</span>{"\n"}
                 <span className="text-accent">$ </span>curl -fsSL get.aiigo.org | sh{"\n"}
                 <span className="text-ink-500"># → detected: 2× RTX 4090</span>{"\n"}
                 <span className="text-ink-500"># → est. earnings: $14.20/day</span>{"\n"}
@@ -686,14 +717,14 @@ function HowItWorks() {
                 <span className="text-ink-400">~ $ submit job</span>
                 <span className="text-ink-500 text-[10px]">aiigo-cli · v2.4</span>
               </div>
-              <pre className="px-4 py-4 text-paper/90"><span className="text-accent">$ </span>aiigo run ./train.yaml \{"\n"}
+              <pre className="px-4 py-4 text-paper/90 overflow-x-auto"><span className="text-accent">$ </span>aiigo run ./train.yaml \{"\n"}
                 --sku h100-80g --max $2.00/hr \{"\n"}
                 --replicas 8 --region any{"\n"}
                 <span className="text-ink-500"># → matched 8 nodes in 1.3s</span>{"\n"}
                 <span className="text-ink-500"># → streaming logs… </span><span className="text-accent">●</span></pre>
             </div>
 
-            <div className="mt-6 flex gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Btn variant="primary" size="md" as="a" href="#">Get API key <Arrow size={12} /></Btn>
               <a href="#" className="text-[13px] font-medium underline underline-offset-4 text-ink-700 hover:text-ink-950 self-center">Read the docs →</a>
             </div>
@@ -701,14 +732,14 @@ function HowItWorks() {
         </div>
 
         {/* Guarantees row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 mt-0 border-l border-r border-b hair-dark">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 mt-0 border-x lg:border-l lg:border-r border-b hair-dark">
           {[
             ['Per-second billing', 'No 15-minute rounding'],
             ['Cryptographic receipts', 'PoW + PoDC proofs'],
             ['Auto-refund', 'Failed job = zero charge'],
             ['Open protocol', 'Self-host the matcher'],
           ].map(([k, v], i) => (
-            <div key={k} className={`p-6 ${i > 0 ? 'border-l hair-dark' : ''} ${i >= 2 ? 'border-t lg:border-t-0' : ''}`}>
+            <div key={k} className={`p-6 ${i % 2 !== 0 && i !== 0 ? 'sm:border-l sm:hair-dark' : ''} ${i > 0 && i !== 1 ? 'border-t sm:hair-dark' : ''} lg:border-t-0 lg:border-l lg:hair-dark`}>
               <div className="flex items-start gap-2">
                 <svg width="14" height="14" viewBox="0 0 14 14" className="mt-1 text-ink-950"><path d="M3 7L6 10L11 4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" /></svg>
                 <div>
@@ -764,7 +795,7 @@ function NetworkMap() {
 
   return (
     <section id="network" className="relative bg-ink-950 border-b hair-b">
-      <div className="max-w-[1400px] mx-auto px-6 py-24">
+      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24">
         <div className="grid grid-cols-12 gap-10 mb-12">
           <div className="col-span-12 md:col-span-6">
             <Eyebrow className="mb-4">§03 · Network</Eyebrow>
@@ -915,7 +946,7 @@ function EarningsCalc() {
 
   return (
     <section id="earn-calc" className="relative bg-ink-950 border-b hair-b">
-      <div className="max-w-[1400px] mx-auto px-6 py-24">
+      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24">
         <div className="grid grid-cols-12 gap-10 mb-12">
           <div className="col-span-12 md:col-span-7">
             <Eyebrow className="mb-4">§04 · Economics</Eyebrow>
@@ -977,7 +1008,7 @@ function EarningsCalc() {
             <CornerMarks color="border-ink-500/40" />
             <Eyebrow className="mb-6">Projected earnings · after 8% network fee</Eyebrow>
 
-            <div className="grid grid-cols-3 gap-0 border hair divide-x divide-white/10 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 border hair divide-y sm:divide-y-0 sm:divide-x divide-white/10 mb-8">
               {[
                 ['Daily', daily],
                 ['Monthly', monthly],
@@ -1042,7 +1073,7 @@ function Providers() {
   return (
     <>
       <section className="relative bg-ink-950 border-b hair-b">
-        <div className="max-w-[1400px] mx-auto px-6 py-24">
+        <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24">
           <div className="grid grid-cols-12 gap-10 mb-14">
             <div className="col-span-12 md:col-span-6">
               <Eyebrow className="mb-4">§05 · Who is on the network</Eyebrow>
@@ -1131,7 +1162,7 @@ function Providers() {
       {/* Final CTA */}
       <section className="relative bg-paper text-ink-950 border-b hair-b">
         <div className="absolute inset-0 grid-bg-paper opacity-60 pointer-events-none"></div>
-        <div className="max-w-[1400px] mx-auto px-6 py-28 relative">
+        <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28 relative">
           <div className="grid grid-cols-12 gap-10 items-end">
             <div className="col-span-12 lg:col-span-8">
               <Eyebrow className="text-ink-500 mb-6">§06 · The ask</Eyebrow>
@@ -1207,7 +1238,7 @@ function FooterBlock() {
 
   return (
     <footer className="relative bg-ink-950 text-ink-200">
-      <div className="max-w-[1400px] mx-auto px-6 pt-24 pb-12">
+      <div className="max-w-[1400px] mx-auto px-6 pt-16 md:pt-24 pb-12">
         <div className="grid grid-cols-12 gap-10 mb-16">
           <div className="col-span-12 md:col-span-4">
             <div className="flex items-center gap-2 mb-6">
