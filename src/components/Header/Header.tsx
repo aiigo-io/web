@@ -123,7 +123,7 @@ const Header: React.FC = () => {
             className="h-8 w-8 mr-2"
           />
           <span
-            className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 font-bold"
+            className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-violet-500 to-rose-500 font-bold"
             style={{ WebkitBackgroundClip: 'text' }}
           >
             AIIGo
@@ -149,7 +149,7 @@ const Header: React.FC = () => {
                 {isActive && (
                   <motion.div
                     layoutId="navIndicator"
-                    className="absolute inset-0 bg-gradient-to-r from-sky-500/10 via-blue-600/10 to-cyan-500/10 rounded-full -z-10"
+                    className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-rose-500/10 rounded-full -z-10"
                     transition={{
                       type: "spring",
                       stiffness: 300,
@@ -214,7 +214,7 @@ const Header: React.FC = () => {
                 className="h-8 w-8 mr-2"
               />
               <span
-                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 font-bold"
+                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-violet-500 to-rose-500 font-bold"
                 style={{ WebkitBackgroundClip: 'text' }}
               >
                 AIIGo
@@ -265,7 +265,7 @@ const Header: React.FC = () => {
                     <Icon className="mr-3 h-6 w-6" />
                     {item.name}
                     {isActive && (
-                      <div className="ml-2 h-1 w-16 bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 rounded-full"></div>
+                      <div className="ml-2 h-1 w-16 bg-gradient-to-r from-indigo-500 via-violet-500 to-rose-500 rounded-full"></div>
                     )}
                   </a>
                 </motion.div>

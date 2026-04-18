@@ -19,10 +19,10 @@ const CTA: React.FC = () => {
         
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
           <div className="max-w-xl text-center lg:text-left">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Start Your AI Computing Journey Today</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Start Your AI Computing Fusion Today</h2>
             <p className="text-base md:text-lg text-white/70 mb-0">
-              Join thousands of users already leveraging AIIGo's computing power. 
-              Our platform makes AI computing accessible to everyone.
+              Join the future of decentralized intelligence. Deploy your compute as a miner 
+              or access elite GPU clusters for your next AI breakthrough.
             </p>
           </div>
           

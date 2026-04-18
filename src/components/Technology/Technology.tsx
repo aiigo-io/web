@@ -11,19 +11,19 @@ interface Benefit {
 const Technology: React.FC = () => {
   const benefitsData: Benefit[] = [
     {
-      icon: <Zap className="h-6 w-6 text-amber-400" />,
-      title: 'Energy Efficient',
-      description: 'Optimized algorithms that use minimal resources compared to traditional AI systems'
+      icon: <Zap className="h-6 w-6 text-indigo-400" />,
+      title: 'PoW Verification',
+      description: 'Real-time cryptographic challenges ensure providers deliver the exact compute power promised.'
     },
     {
-      icon: <Shield className="h-6 w-6 text-emerald-400" />,
-      title: 'Highly Secure',
-      description: 'Advanced encryption protects your models and data'
+      icon: <Shield className="h-6 w-6 text-rose-400" />,
+      title: 'Secure Escrow',
+      description: 'Funds are held in secure smart contracts and only released upon verified task completion.'
     },
     {
-      icon: <Gauge className="h-6 w-6 text-indigo-400" />,
-      title: 'Scalable',
-      description: 'Handles millions of operations per second across distributed systems'
+      icon: <Gauge className="h-6 w-6 text-amber-400" />,
+      title: 'Matching Engine',
+      description: 'Our automated SLA engine connects buyers with the most cost-effective and reliable nodes.'
     }
   ];
 
@@ -82,28 +82,28 @@ const Technology: React.FC = () => {
             viewport={{ once: true }}
             className="flex flex-col justify-center"
           >
-            <h3 className="text-2xl md:text-3xl font-bold mb-6">AI Infrastructure Reimagined</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-6">Built for Verifiable Scale</h3>
             <p className="mb-6 text-white/70">
-              AIIGo is built on a cutting-edge distributed computing architecture designed for optimal performance,
-              security, and energy efficiency. Our innovative resource allocation system maximizes computing power
-              while minimizing energy consumption.
+              AIIGo replaces trust with mathematics. Our architecture ensures that every TFLOP of compute is verified
+              through a decentralized proof-of-work layer, making it the most reliable network for demanding 
+              AI workloads.
             </p>
 
             <div className="relative mb-8 pl-4 border-l-2 border-primary">
               <p className="text-white/70">
-                The platform supports various AI and machine learning frameworks, distributed computing, and seamless integration
-                with existing cloud systems.
+                The platform integrates seamlessly with existing AI frameworks while maintaining a trustless 
+                escrow layer for all economic value exchange.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <div className="glass-card px-5 py-3 rounded-lg border border-white/10 flex items-center gap-3 transform-3d-hover">
                 <GitMerge className="h-5 w-5 text-indigo-400" />
-                <span className="text-sm font-medium">Distributed Processing</span>
+                <span className="text-sm font-medium">PoW Consensus</span>
               </div>
               <div className="glass-card px-5 py-3 rounded-lg border border-white/10 flex items-center gap-3 transform-3d-hover">
                 <ServerOff className="h-5 w-5 text-rose-400" />
-                <span className="text-sm font-medium">Low Latency</span>
+                <span className="text-sm font-medium">Verified Compute</span>
               </div>
             </div>
           </motion.div>

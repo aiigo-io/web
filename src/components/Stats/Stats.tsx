@@ -30,10 +30,10 @@ const AnimatedCounter = ({ value, prefix = '', suffix = '' }: { value: number; p
 
 const Stats: React.FC = () => {
   const statsData: StatItem[] = [
-    { value: 250000, label: 'ACTIVE USERS', suffix: '+' },
-    { value: 1500000, label: 'TRANSACTIONS', suffix: '+' },
-    { value: 99.9, label: 'UPTIME', suffix: '%' },
-    { value: 15000, label: 'NODES WORLDWIDE', suffix: '+' },
+    { value: 2914771, label: 'TOTAL TFLOPS', suffix: '' },
+    { value: 2488107, label: 'ACTIVE NODES', suffix: '' },
+    { value: 18432, label: 'RUNNING TASKS', suffix: '' },
+    { value: 12.5, label: 'NETWORK GROWTH', suffix: '%', prefix: '+' },
   ];
 
   return (

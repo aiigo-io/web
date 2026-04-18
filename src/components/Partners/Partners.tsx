@@ -167,7 +167,7 @@ const Partners: React.FC = () => {
           }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          <span className="mr-2 w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span className="mr-2 w-2 h-2 rounded-full bg-primary animate-pulse"></span>
           Looking for new strategic partnerships
         </motion.div>
       </motion.div>

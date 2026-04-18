@@ -11,19 +11,19 @@ interface FeatureItem {
 const Features: React.FC = () => {
   const featuresData: FeatureItem[] = [
     {
-      title: 'Cloud Processing',
-      description: 'Access AIIGo computing resources directly from your devices without requiring expensive hardware or excessive energy consumption.',
+      title: 'For Providers (Miners)',
+      description: 'Turn your idle silicon into native ETH. One-click setup on Desktop for GPUs, CPUs, and high-speed network nodes with 92% direct payouts.',
       icon: <Cpu className="w-6 h-6 text-indigo-400" />
     },
     {
-      title: 'Advanced Security',
-      description: 'Our platform uses state-of-the-art encryption and security protocols to ensure your AI models and data remain private and secure.',
-      icon: <Shield className="w-6 h-6 text-rose-400" />
+      title: 'For Buyers (startups)',
+      description: 'Elite AI compute at 70% lower cost. Automated SLA matching and instant scalability for model training and scientific simulations.',
+      icon: <Zap className="w-6 h-6 text-rose-400" />
     },
     {
-      title: 'High Performance',
-      description: 'Lightning-fast processing speeds with optimized resource allocation, making AIIGo perfect for demanding AI workloads.',
-      icon: <Zap className="w-6 h-6 text-amber-400" />
+      title: 'Security & PoW',
+      description: 'Verified computational power through cryptographic PoW challenges and secure ETH-based escrow management for guaranteed results.',
+      icon: <Shield className="w-6 h-6 text-amber-400" />
     }
   ];
 
@@ -59,7 +59,7 @@ const Features: React.FC = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          All In One AI Platform
+          The Dual-Marketplace Engine
         </motion.h2>
         <motion.p 
           className="text-white/60 mt-4"
@@ -68,7 +68,7 @@ const Features: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          A comprehensive suite of tools and services designed to make AI computing accessible, efficient, and user-friendly.
+          Connecting the world's idle computational power with the next generation of AI innovation through a transparent, decentralized marketplace.
         </motion.p>
       </div>
 
