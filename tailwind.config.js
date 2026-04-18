@@ -1,48 +1,60 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    darkMode: ["class"],
-    content: [
+  darkMode: ["class"],
+  content: [
     "./src/**/*.{js,jsx,ts,tsx}",
     "./@src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
+        serif: ['Instrument Serif', 'serif'],
+      },
       colors: {
-        primary: '#5468ff',
-        secondary: '#6c63ff',
-        dark: '#1a1a2e',
-        light: '#f7f7f9',
-        indigo: {
-          300: '#a5b4fc',
-          500: '#6366f1',
+        ink: {
+          950: '#0A0B0D',
+          900: '#0F1113',
+          800: '#15171B',
+          700: '#1C1F24',
+          600: '#2A2E35',
+          500: '#4A4E57',
+          400: '#6B7079',
+          300: '#9AA0AA',
+          200: '#C8CDD5',
+          100: '#E6E9ED',
+          50: '#F3F4F6',
         },
-        rose: {
-          300: '#fda4af',
-          500: '#f43f5e',
+        paper: '#F5F1EA',
+        paper2: '#EDE7DC',
+        lime: {
+          DEFAULT: '#C6FF3F',
+          dim: '#A8DC34',
         },
         amber: {
-          500: '#f59e0b',
+          warn: '#F7B955',
         },
-        violet: {
-          500: '#8b5cf6',
-        },
-        cyan: {
-          500: '#06b6d4',
-        },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        muted: "hsl(var(--muted))",
-        "muted-foreground": "hsl(var(--muted-foreground))",
+        signal: {
+          red: '#FF5D5D',
+          green: '#4ADE80',
+        }
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      animation: {
+        'pulse-dot': 'pulseDot 1.8s ease-in-out infinite',
+        'ticker': 'ticker 60s linear infinite',
       },
-    },
+      keyframes: {
+        pulseDot: {
+          '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+          '50%': { opacity: 0.5, transform: 'scale(0.85)' },
+        },
+        ticker: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        }
+      }
+    }
   },
   plugins: [],
-} 
+}
